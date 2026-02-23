@@ -1,0 +1,133 @@
+{
+  "kind": "build_request",
+  "title": "Create Reapers Asylum MC motorcycle club app",
+  "projectName": "Reapers Asylum MC",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a homepage that showcases the Reapers Asylum MC motorcycle club with sections for club overview, mission statement, and featured content",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Homepage displays club name prominently",
+        "Mission statement section is visible and readable",
+        "Layout is responsive and works on mobile devices"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a members roster page that displays club members with their roles (President, Vice President, Road Captain, Secretary, Members, etc.)",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Members are displayed with their names and club roles",
+        "Backend stores member data with role assignments",
+        "Only authorized users can view the full roster"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create an events calendar feature where club members can view upcoming rides, meetings, and club events",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Events display with date, time, location, and description",
+        "Calendar view shows events chronologically",
+        "Backend persists event data"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement user authentication using Internet Identity so members can log in and access member-only features",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can authenticate via Internet Identity",
+        "Authenticated state persists across page refreshes",
+        "Login/logout functionality works correctly"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Create a club news feed where administrators can post announcements and updates visible to all members",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "News posts display in reverse chronological order",
+        "Each post shows title, content, author, and timestamp",
+        "Backend stores and retrieves news posts"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement a photo gallery section for club ride photos and event memories",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Photos display in a responsive grid layout",
+        "Users can click to view full-size images",
+        "Backend stores photo metadata and references"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Design a bold, edgy visual theme inspired by motorcycle club aesthetics with dark colors, leather textures, metallic accents, and rugged typography that reflects the brotherhood and rebellious spirit of a motorcycle club, consistently applied across all pages",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Visual theme uses dark color palette with metallic accents",
+        "Typography reflects motorcycle club style",
+        "Design is consistent across all pages and components"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Internet Identity for authentication, no third-party auth providers",
+    "All backend logic must be in a single Motoko actor",
+    "Frontend must use React with TypeScript and Tailwind CSS"
+  ],
+  "nonGoals": [
+    "Integration with external mapping services for ride routes",
+    "Real-time chat or messaging between members",
+    "E-commerce functionality for club merchandise",
+    "Mobile app development"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Skull with motorcycle wings logo for club emblem, edgy and bold style with metallic finish (club-logo.dim_512x512.png)",
+      "Dark textured background with subtle leather and chrome patterns for hero section (hero-background.dim_1920x800.png)",
+      "Motorcycle silhouette icon for events section in metallic silver style (event-icon.dim_128x128.png)",
+      "Road banner image showing open highway with dramatic lighting for rides section (road-banner.dim_1200x400.png)"
+    ],
+    "edits": []
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Reapers Asylum MC Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create a homepage showcasing the Reapers Asylum MC motorcycle club with sections for club overview, mission statement, and featured content",
+      "acceptanceCriteria": [
+        "Homepage displays club name prominently",
+        "Mission statement section is visible and readable",
+        "Layout is responsive and works on mobile devices"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create the homepage component with hero section using the generated hero-background image (frontend/public/assets/generated/hero-background.dim_1920x800.png), club overview with the club logo (frontend/public/assets/generated/club-logo.dim_512x512.png), mission statement section, and featured content areas. Implement responsive layout with dark motorcycle club aesthetic."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for the HomePage at '/' path and include navigation to other main sections (Members, Events, News, Gallery). Verify the authorization component's usage instructions before implementing to ensure proper authentication flow."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement a members roster page displaying club members with their roles, restricted to authenticated users",
+      "acceptanceCriteria": [
+        "Members are displayed with their names and club roles",
+        "Backend stores member data with role assignments",
+        "Only authorized users can view the full roster"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MembersPage.tsx",
+          "operation": "create",
+          "description": "Create the members roster page that fetches and displays club members using the getMembers backend capability. Display members organized by role (President, Vice President, Road Captain, Secretary, Treasurer, Members, Guest). Use the authorization component to restrict access to authenticated users only. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useMembers.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch members from the backend using the getMembers method. Handle loading and error states appropriately."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for MembersPage at '/members' path with authentication guard to ensure only logged-in users can access it."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create an events calendar feature where club members can view upcoming rides, meetings, and club events",
+      "acceptanceCriteria": [
+        "Events display with date, time, location, and description",
+        "Calendar view shows events chronologically",
+        "Backend persists event data"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/EventsPage.tsx",
+          "operation": "create",
+          "description": "Create the events calendar page that fetches and displays events using the getEvents backend capability. Show events in chronological order with date, time, location, description, and event type. Use the generated event-icon image (frontend/public/assets/generated/event-icon.dim_128x128.png) for event markers. Include the road-banner image (frontend/public/assets/generated/road-banner.dim_1200x400.png) in the rides section header."
+        },
+        {
+          "path": "frontend/src/hooks/useEvents.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch events from the backend using the getEvents method. Handle loading and error states appropriately."
+        },
+        {
+          "path": "frontend/src/components/EventCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable event card component to display individual event details with appropriate styling matching the motorcycle club theme."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for EventsPage at '/events' path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement user authentication using Internet Identity for member-only features",
+      "acceptanceCriteria": [
+        "Users can authenticate via Internet Identity",
+        "Authenticated state persists across page refreshes",
+        "Login/logout functionality works correctly"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button component using the authorization component's useInternetIdentity hook. Handle login, logout, and loading states. Clear query cache on logout. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal component that prompts first-time users to set up their profile (name and bio) after logging in. Use the authorization component's getCallerUserProfile and saveCallerUserProfile methods. Implement proper loading state handling to prevent modal flash. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch the current user's profile using getCallerUserProfile backend capability. Implement proper dependency handling on actor availability to prevent profile setup modal flash, following the authorization component's pattern. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useSaveCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook to save the current user's profile using saveCallerUserProfile backend capability. Invalidate the currentUserProfile query after successful save."
+        },
+        {
+          "path": "frontend/src/components/Navbar.tsx",
+          "operation": "create",
+          "description": "Create a navigation bar component with the club logo (frontend/public/assets/generated/club-logo.dim_512x512.png), navigation links to main sections, and the LoginButton component. Display user name when authenticated."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add Navbar component to the app layout. Implement ProfileSetupModal that shows when a user logs in without an existing profile. Ensure authentication state is properly managed across all routes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Create a club news feed where administrators can post announcements and updates visible to all members",
+      "acceptanceCriteria": [
+        "News posts display in reverse chronological order",
+        "Each post shows title, content, author, and timestamp",
+        "Backend stores and retrieves news posts"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/NewsPage.tsx",
+          "operation": "create",
+          "description": "Create the news feed page that fetches and displays news posts using the getNewsFeed backend capability. Show posts in reverse chronological order with title, content, author, and timestamp. Include admin-only UI section for posting new announcements using the authorization component's isCallerAdmin check. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useNewsFeed.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch news posts from the backend using the getNewsFeed method. Handle loading and error states appropriately."
+        },
+        {
+          "path": "frontend/src/hooks/usePostNews.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook for admins to post news using the postNews backend capability. Invalidate the news feed query after successful post."
+        },
+        {
+          "path": "frontend/src/components/NewsCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable news card component to display individual news posts with appropriate styling matching the motorcycle club theme."
+        },
+        {
+          "path": "frontend/src/components/PostNewsForm.tsx",
+          "operation": "create",
+          "description": "Create an admin-only form component for posting news with title and content inputs. Use the usePostNews hook and handle form validation and submission states."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for NewsPage at '/news' path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement a photo gallery section for club ride photos and event memories",
+      "acceptanceCriteria": [
+        "Photos display in a responsive grid layout",
+        "Users can click to view full-size images",
+        "Backend stores photo metadata and references"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/GalleryPage.tsx",
+          "operation": "create",
+          "description": "Create the photo gallery page with responsive grid layout for displaying photos. Implement click-to-enlarge functionality for full-size image viewing. Use the blob-storage component for photo display via ExternalBlob.getDirectURL() for optimal streaming and caching. Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/PhotoGrid.tsx",
+          "operation": "create",
+          "description": "Create a responsive photo grid component that displays images in a masonry or grid layout with hover effects matching the motorcycle club aesthetic."
+        },
+        {
+          "path": "frontend/src/components/PhotoLightbox.tsx",
+          "operation": "create",
+          "description": "Create a lightbox/modal component for viewing full-size images with navigation between photos and close functionality."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for GalleryPage at '/gallery' path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Design a bold, edgy visual theme inspired by motorcycle club aesthetics with dark colors, leather textures, metallic accents, and rugged typography",
+      "acceptanceCriteria": [
+        "Visual theme uses dark color palette with metallic accents",
+        "Typography reflects motorcycle club style",
+        "Design is consistent across all pages and components"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global styles with motorcycle club theme: dark color palette (blacks, dark grays, dark reds), metallic accents (silver, chrome effects), custom font imports for rugged typography (bold, edgy fonts), and CSS custom properties for consistent theming across the application."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind configuration with custom motorcycle club theme colors (dark backgrounds, metallic silver/chrome accents, dark red highlights), custom fonts for bold typography, and texture utilities for leather and metallic effects."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create a layout wrapper component that applies the motorcycle club theme consistently across all pages with dark background, metallic borders, and appropriate spacing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap all routes with the Layout component to ensure consistent theming across the application."
+        }
+      ]
+    }
+  ]
+}

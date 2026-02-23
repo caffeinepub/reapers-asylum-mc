@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Motorcycle club app for Reapers Asylum MC",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Skull with motorcycle wings logo for club emblem, edgy and bold style with metallic finish (club-logo.dim_512x512.png)\n- Dark textured background with subtle leather and chrome patterns for hero section (hero-background.dim_1920x800.png)\n- Motorcycle silhouette icon for events section in metallic silver style (event-icon.dim_128x128.png)\n- Road banner image showing open highway with dramatic lighting for rides section (road-banner.dim_1200x400.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-homepage-that-showcases-the-reapers-asylum-mc-motorcycle-club-with-sections-for-club-overview-mission-statement-and-featured-content",
+      "title": "Create a homepage that showcases the Reapers Asylum MC motorcycle club with sections for club overview, mission statement, and featured content",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-members-roster-page-that-displays-club-members-with-their-roles-president-vice-president-road-captain-secretary-members-etc",
+      "title": "Implement a members roster page that displays club members with their roles (President, Vice President, Road Captain, Secretary, Members, etc.)",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-events-calendar-feature-where-club-members-can-view-upcoming-rides-meetings-and-club-events",
+      "title": "Create an events calendar feature where club members can view upcoming rides, meetings, and club events",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-user-authentication-using-internet-identity-so-members-can-log-in-and-access-member-only-features",
+      "title": "Implement user authentication using Internet Identity so members can log in and access member-only features",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-club-news-feed-where-administrators-can-post-announcements-and-updates-visible-to-all-members",
+      "title": "Create a club news feed where administrators can post announcements and updates visible to all members",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-photo-gallery-section-for-club-ride-photos-and-event-memories",
+      "title": "Implement a photo gallery section for club ride photos and event memories",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-a-bold-edgy-visual-theme-inspired-by-motorcycle-club-aesthetics-with-dark-colors-leather-textures-metallic-accents-and-rugged-typography-that-reflects-the-brotherhood-and-rebellious-spirit-of-a-motorcycle-club-consistently-applied-across-all-pages",
+      "title": "Design a bold, edgy visual theme inspired by motorcycle club aesthetics with dark colors, leather textures, metallic accents, and rugged typography that reflects the brotherhood and rebellious spirit of a motorcycle club, consistently applied across all pages",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [],
+  "gameProjectType": "none",
+  "projectName": "Reapers Asylum MC",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

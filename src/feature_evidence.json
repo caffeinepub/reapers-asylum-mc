@@ -1,0 +1,164 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-homepage-that-showcases-the-reapers-asylum-mc-motorcycle-club-with-sections-for-club-overview-mission-statement-and-featured-content",
+      "featureTitle": "Create a homepage that showcases the Reapers Asylum MC motorcycle club with sections for club overview, mission statement, and featured content",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-members-roster-page-that-displays-club-members-with-their-roles-president-vice-president-road-captain-secretary-members-etc",
+      "featureTitle": "Implement a members roster page that displays club members with their roles (President, Vice President, Road Captain, Secretary, Members, etc.)",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useMembers.ts",
+        "frontend/src/pages/MembersPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-an-events-calendar-feature-where-club-members-can-view-upcoming-rides-meetings-and-club-events",
+      "featureTitle": "Create an events calendar feature where club members can view upcoming rides, meetings, and club events",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/EventCard.tsx",
+        "frontend/src/hooks/useEvents.ts",
+        "frontend/src/pages/EventsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-user-authentication-using-internet-identity-so-members-can-log-in-and-access-member-only-features",
+      "featureTitle": "Implement user authentication using Internet Identity so members can log in and access member-only features",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/Navbar.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useGetCallerUserProfile.ts",
+        "frontend/src/hooks/useSaveCallerUserProfile.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-club-news-feed-where-administrators-can-post-announcements-and-updates-visible-to-all-members",
+      "featureTitle": "Create a club news feed where administrators can post announcements and updates visible to all members",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/NewsCard.tsx",
+        "frontend/src/components/PostNewsForm.tsx",
+        "frontend/src/hooks/useNewsFeed.ts",
+        "frontend/src/hooks/usePostNews.ts",
+        "frontend/src/pages/NewsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-photo-gallery-section-for-club-ride-photos-and-event-memories",
+      "featureTitle": "Implement a photo gallery section for club ride photos and event memories",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/GalleryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-a-bold-edgy-visual-theme-inspired-by-motorcycle-club-aesthetics-with-dark-colors-leather-textures-metallic-accents-and-rugged-typography-that-reflects-the-brotherhood-and-rebellious-spirit-of-a-motorcycle-club-consistently-applied-across-all-pages",
+      "featureTitle": "Design a bold, edgy visual theme inspired by motorcycle club aesthetics with dark colors, leather textures, metallic accents, and rugged typography that reflects the brotherhood and rebellious spirit of a motorcycle club, consistently applied across all pages",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

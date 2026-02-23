@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Teko:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0rem;
+        --background: 0.98 0 0;
+        --foreground: 0.15 0 0;
+        --card: 0.95 0 0;
+        --card-foreground: 0.15 0 0;
+        --popover: 0.95 0 0;
+        --popover-foreground: 0.15 0 0;
+        --primary: 0.45 0.15 15;
+        --primary-foreground: 0.98 0 0;
+        --secondary: 0.75 0.02 0;
+        --secondary-foreground: 0.15 0 0;
+        --muted: 0.85 0 0;
+        --muted-foreground: 0.50 0 0;
+        --accent: 0.75 0.02 0;
+        --accent-foreground: 0.15 0 0;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        --border: 0.30 0.03 0;
+        --input: 0.30 0.03 0;
+        --ring: 0.45 0.15 15;
+        --chart-1: 0.65 0.20 15;
+        --chart-2: 0.60 0.12 180;
+        --chart-3: 0.40 0.07 220;
+        --chart-4: 0.83 0.19 80;
+        --chart-5: 0.77 0.19 65;
+        --sidebar: 0.98 0 0;
+        --sidebar-foreground: 0.15 0 0;
+        --sidebar-primary: 0.45 0.15 15;
+        --sidebar-primary-foreground: 0.98 0 0;
+        --sidebar-accent: 0.85 0 0;
+        --sidebar-accent-foreground: 0.15 0 0;
+        --sidebar-border: 0.30 0.03 0;
+        --sidebar-ring: 0.45 0.15 15;
+        
+        --metal: 0.70 0.01 0;
+        --chrome: 0.85 0.01 0;
+        --leather: 0.25 0.02 30;
+        --blood-red: 0.45 0.25 15;
+    }
+
+    .dark {
+        --background: 0.12 0 0;
+        --foreground: 0.92 0.01 0;
+        --card: 0.18 0.01 0;
+        --card-foreground: 0.92 0.01 0;
+        --popover: 0.15 0.01 0;
+        --popover-foreground: 0.92 0.01 0;
+        --primary: 0.55 0.20 15;
+        --primary-foreground: 0.98 0 0;
+        --secondary: 0.25 0.02 0;
+        --secondary-foreground: 0.92 0.01 0;
+        --muted: 0.22 0.01 0;
+        --muted-foreground: 0.65 0.01 0;
+        --accent: 0.28 0.02 0;
+        --accent-foreground: 0.92 0.01 0;
+        --destructive: 0.50 0.22 20;
+        --destructive-foreground: 0.98 0 0;
+        --border: 0.30 0.03 0;
+        --input: 0.25 0.02 0;
+        --ring: 0.55 0.20 15;
+        --chart-1: 0.50 0.24 260;
+        --chart-2: 0.70 0.17 160;
+        --chart-3: 0.77 0.19 65;
+        --chart-4: 0.63 0.27 300;
+        --chart-5: 0.65 0.25 15;
+        --sidebar: 0.15 0.01 0;
+        --sidebar-foreground: 0.92 0.01 0;
+        --sidebar-primary: 0.55 0.20 15;
+        --sidebar-primary-foreground: 0.98 0 0;
+        --sidebar-accent: 0.22 0.01 0;
+        --sidebar-accent-foreground: 0.92 0.01 0;
+        --sidebar-border: 0.30 0.03 0;
+        --sidebar-ring: 0.55 0.20 15;
+        
+        --metal: 0.60 0.01 0;
+        --chrome: 0.75 0.01 0;
+        --leather: 0.20 0.02 30;
+        --blood-red: 0.50 0.25 15;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Oswald', sans-serif;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Bebas Neue', sans-serif;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+    
+    .font-display {
+        font-family: 'Bebas Neue', sans-serif;
+    }
+    
+    .font-heading {
+        font-family: 'Teko', sans-serif;
+    }
+}
+
+@layer utilities {
+    .metal-gradient {
+        background: linear-gradient(135deg, oklch(var(--metal)) 0%, oklch(var(--chrome)) 50%, oklch(var(--metal)) 100%);
+    }
+    
+    .chrome-text {
+        background: linear-gradient(135deg, oklch(var(--metal)) 0%, oklch(var(--chrome)) 50%, oklch(var(--metal)) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .leather-texture {
+        background-color: oklch(var(--leather));
+        background-image: 
+            radial-gradient(circle at 20% 50%, oklch(var(--leather) / 0.8) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, oklch(var(--leather) / 0.8) 0%, transparent 50%);
+    }
+    
+    .blood-glow {
+        box-shadow: 0 0 20px oklch(var(--blood-red) / 0.5);
+    }
+    
+    .metal-border {
+        border-color: oklch(var(--metal));
+        box-shadow: inset 0 1px 0 oklch(var(--chrome) / 0.3);
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "frontend/src/index.css": "Global styles with motorcycle club theme featuring dark colors, metallic accents (chrome/silver), custom fonts (Bebas Neue, Teko, Oswald), and utility classes for metal gradients, chrome text effects, and leather textures.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with motorcycle club theme colors (metal, chrome, leather, blood-red), custom fonts, metal shadow effects, and sharp border radius (0rem for edgy aesthetic).",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, ThemeProvider wrapper, Layout component with Navbar and footer, and routes for all pages (Home, Members, Events, News, Gallery).",
+  "frontend/src/components/Navbar.tsx": "Navigation bar component with club logo, responsive menu, navigation links (with auth guards), user profile display, and LoginButton integration.",
+  "frontend/src/components/LoginButton.tsx": "Authentication button component using Internet Identity hook with login/logout functionality, loading states, and query cache clearing on logout.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup with name and bio inputs, preventing modal flash with proper loading state handling.",
+  "frontend/src/pages/HomePage.tsx": "Homepage with hero section featuring club logo and background image, mission statement, feature cards grid linking to main sections, and call-to-action.",
+  "frontend/src/pages/MembersPage.tsx": "Members roster page displaying club members organized by role with icons, badges, and role-based styling, restricted to authenticated users.",
+  "frontend/src/pages/EventsPage.tsx": "Events calendar page with road banner header, displaying events chronologically with EventCard components, restricted to authenticated users.",
+  "frontend/src/pages/NewsPage.tsx": "News feed page showing announcements in reverse chronological order with admin-only PostNewsForm section for creating new posts.",
+  "frontend/src/pages/GalleryPage.tsx": "Photo gallery page placeholder with authentication guard, ready for future photo display implementation using blob storage.",
+  "frontend/src/components/EventCard.tsx": "Reusable event card component displaying event details (title, type, date, time, location) with event icon and type-based badge styling.",
+  "frontend/src/components/NewsCard.tsx": "Reusable news card component displaying news post with title, author, timestamp, and content in motorcycle club themed styling.",
+  "frontend/src/components/PostNewsForm.tsx": "Admin-only form component for posting news announcements with title and content inputs, validation, and success/error toast notifications.",
+  "frontend/src/hooks/useGetCallerUserProfile.ts": "React Query hook to fetch current user's profile with proper actor dependency handling to prevent profile setup modal flash.",
+  "frontend/src/hooks/useSaveCallerUserProfile.ts": "React Query mutation hook to save user profile with automatic query invalidation on success.",
+  "frontend/src/hooks/useMembers.ts": "React Query hook to fetch club members list from backend with loading and error states.",
+  "frontend/src/hooks/useEvents.ts": "React Query hook to fetch club events from backend with loading and error states.",
+  "frontend/src/hooks/useNewsFeed.ts": "React Query hook to fetch news feed from backend, sorted in reverse chronological order by timestamp.",
+  "frontend/src/hooks/usePostNews.ts": "React Query mutation hook for admins to post news with automatic news feed invalidation on success.",
+  "frontend/src/hooks/useIsCallerAdmin.ts": "React Query hook to check if current user has admin privileges for conditional UI rendering."
+}
