@@ -25,8 +25,11 @@ export interface News {
     timestamp: Time;
 }
 export interface Member {
+    id: string;
+    bio?: string;
     name: string;
     role: MemberRole;
+    photoUrl: string;
 }
 export interface UserProfile {
     bio: string;
@@ -57,15 +60,18 @@ export enum UserRole {
 }
 export interface backendInterface {
     addEvent(title: string, description: string, startTime: Time, endTime: Time, location: string, eventType: EventType): Promise<void>;
-    addMember(name: string, role: MemberRole): Promise<void>;
+    addMember(name: string, role: MemberRole, photoUrl: string, bio: string | null): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    deleteMember(id: string): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getEvents(): Promise<Array<Event>>;
     getMembers(): Promise<Array<Member>>;
     getNewsFeed(): Promise<Array<News>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    initializeMembership(): Promise<void>;
     isCallerAdmin(): Promise<boolean>;
     postNews(title: string, content: string, postedBy: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    updateMember(id: string, name: string, role: MemberRole, photoUrl: string, bio: string | null): Promise<void>;
 }

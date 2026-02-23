@@ -1,14 +1,17 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import { useState } from 'react';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useGetCallerUserProfile } from '../hooks/useGetCallerUserProfile';
+import { useIsCallerAdmin } from '../hooks/useIsCallerAdmin';
 import LoginButton from './LoginButton';
+import AdminBadge from './AdminBadge';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { identity } = useInternetIdentity();
   const { data: userProfile } = useGetCallerUserProfile();
+  const { data: isAdmin } = useIsCallerAdmin();
   const navigate = useNavigate();
 
   const isAuthenticated = !!identity;
@@ -19,10 +22,15 @@ export default function Navbar() {
     { to: '/events', label: 'Events', authRequired: true },
     { to: '/news', label: 'News', authRequired: true },
     { to: '/gallery', label: 'Gallery', authRequired: true },
+    { to: '/admin', label: 'Admin', authRequired: true, adminOnly: true },
+    { to: '/member-management', label: 'Manage Members', authRequired: true, adminOnly: true },
   ];
 
-  const handleNavClick = (to: string, authRequired: boolean) => {
+  const handleNavClick = (to: string, authRequired: boolean, adminOnly?: boolean) => {
     if (authRequired && !isAuthenticated) {
+      return;
+    }
+    if (adminOnly && !isAdmin) {
       return;
     }
     navigate({ to });
@@ -45,26 +53,42 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <button
-                key={link.to}
-                onClick={() => handleNavClick(link.to, link.authRequired || false)}
-                disabled={link.authRequired && !isAuthenticated}
-                className={`font-heading text-lg uppercase tracking-wider transition-colors ${
-                  link.authRequired && !isAuthenticated
-                    ? 'text-muted-foreground cursor-not-allowed'
-                    : 'text-foreground hover:text-primary'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const shouldShow = !link.adminOnly || (link.adminOnly && isAdmin);
+              if (!shouldShow) return null;
+              
+              return (
+                <button
+                  key={link.to}
+                  onClick={() => handleNavClick(link.to, link.authRequired || false, link.adminOnly)}
+                  disabled={link.authRequired && !isAuthenticated}
+                  className={`font-heading text-lg uppercase tracking-wider transition-colors ${
+                    link.authRequired && !isAuthenticated
+                      ? 'text-muted-foreground cursor-not-allowed'
+                      : 'text-foreground hover:text-primary'
+                  }`}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* User Info & Login */}
           <div className="hidden md:flex items-center gap-4">
-            {isAuthenticated && userProfile && (
-              <span className="text-sm text-muted-foreground">Welcome, {userProfile.name}</span>
+            {isAuthenticated && (
+              <div className="flex items-center gap-3">
+                {isAdmin && <AdminBadge />}
+                {userProfile && (
+                  <button
+                    onClick={() => navigate({ to: '/profile' })}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <User className="h-4 w-4" />
+                    <span>{userProfile.name}</span>
+                  </button>
+                )}
+              </div>
             )}
             <LoginButton />
           </div>
@@ -82,23 +106,44 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link) => {
+                const shouldShow = !link.adminOnly || (link.adminOnly && isAdmin);
+                if (!shouldShow) return null;
+                
+                return (
+                  <button
+                    key={link.to}
+                    onClick={() => handleNavClick(link.to, link.authRequired || false, link.adminOnly)}
+                    disabled={link.authRequired && !isAuthenticated}
+                    className={`font-heading text-lg uppercase tracking-wider text-left transition-colors ${
+                      link.authRequired && !isAuthenticated
+                        ? 'text-muted-foreground cursor-not-allowed'
+                        : 'text-foreground hover:text-primary'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
+              {isAuthenticated && (
                 <button
-                  key={link.to}
-                  onClick={() => handleNavClick(link.to, link.authRequired || false)}
-                  disabled={link.authRequired && !isAuthenticated}
-                  className={`font-heading text-lg uppercase tracking-wider text-left transition-colors ${
-                    link.authRequired && !isAuthenticated
-                      ? 'text-muted-foreground cursor-not-allowed'
-                      : 'text-foreground hover:text-primary'
-                  }`}
+                  onClick={() => {
+                    navigate({ to: '/profile' });
+                    setMobileMenuOpen(false);
+                  }}
+                  className="font-heading text-lg uppercase tracking-wider text-left text-foreground hover:text-primary transition-colors"
                 >
-                  {link.label}
+                  Profile
                 </button>
-              ))}
+              )}
               <div className="pt-4 border-t border-border">
-                {isAuthenticated && userProfile && (
-                  <p className="text-sm text-muted-foreground mb-3">Welcome, {userProfile.name}</p>
+                {isAuthenticated && (
+                  <div className="mb-3 space-y-2">
+                    {isAdmin && <AdminBadge />}
+                    {userProfile && (
+                      <p className="text-sm text-muted-foreground">Welcome, {userProfile.name}</p>
+                    )}
+                  </div>
                 )}
                 <LoginButton />
               </div>

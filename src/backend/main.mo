@@ -1,41 +1,32 @@
 import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Int "mo:core/Int";
-import Text "mo:core/Text";
 import Time "mo:core/Time";
 import Order "mo:core/Order";
-import Principal "mo:core/Principal";
+import Bool "mo:core/Bool";
 import Runtime "mo:core/Runtime";
+import Principal "mo:core/Principal";
+import Migration "migration";
 
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
-import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
 
+(with migration = Migration.run)
 actor {
-  // Include storage mixin for photo gallery
-  include MixinStorage();
-
-  // Initialize Access Control for authentication
+  // Access control state
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  // Define persistent state
+  include MixinStorage();
+
+  // Persistent state
+  var membershipInitialized : Bool = false;
   var events : [Event] = [];
   var newsFeed : [News] = [];
   var members : [Member] = [];
-
-  // User Profile type
-  public type UserProfile = {
-    name : Text;
-    memberRole : ?MemberRole;
-    joinDate : Time.Time;
-    bio : Text;
-  };
-
   let userProfiles = Map.empty<Principal, UserProfile>();
 
-  // Define member roles
   public type MemberRole = {
     #president;
     #vicePresident;
@@ -46,7 +37,7 @@ actor {
     #guest;
   };
 
-  // Update specific ordering to use compareRole (no access control)
+  // Explicit compare implementation for MemberRole
   module MemberRole {
     public func compare(role1 : MemberRole, role2 : MemberRole) : Order.Order {
       let roleOrder = switch (role1, role2) {
@@ -78,19 +69,24 @@ actor {
     };
   };
 
-  // Define Member type for persistent state
   public type Member = {
+    id : Text;
     name : Text;
     role : MemberRole;
+    photoUrl : Text;
+    bio : ?Text;
   };
 
+  // Explicit compare implementation for Member
   module Member {
     public func compare(member1 : Member, member2 : Member) : Order.Order {
-      MemberRole.compare(member1.role, member2.role);
+      switch (MemberRole.compare(member1.role, member2.role)) {
+        case (#equal) { member1.name.compare(member2.name) };
+        case (order) { order };
+      };
     };
   };
 
-  // Define Event type
   public type Event = {
     id : Text;
     title : Text;
@@ -109,6 +105,7 @@ actor {
     #other;
   };
 
+  // Explicit compare implementation for Event
   module Event {
     public func compare(event1 : Event, event2 : Event) : Order.Order {
       switch (Int.compare(event1.startTime, event2.startTime)) {
@@ -118,7 +115,6 @@ actor {
     };
   };
 
-  // Define News type
   public type News = {
     id : Text;
     title : Text;
@@ -127,18 +123,23 @@ actor {
     timestamp : Time.Time;
   };
 
+  // Explicit compare implementation for News
   module News {
     public func compare(news1 : News, news2 : News) : Order.Order {
-      if (news1.timestamp < news2.timestamp) {
-        return #less;
-      } else if (news1.timestamp > news2.timestamp) {
-        return #greater;
+      switch (Int.compare(news1.timestamp, news2.timestamp)) {
+        case (#equal) { news1.id.compare(news2.id) };
+        case (order) { order };
       };
-      return news1.id.compare(news2.id);
     };
   };
 
-  // User Profile Management
+  public type UserProfile = {
+    name : Text;
+    memberRole : ?MemberRole;
+    joinDate : Time.Time;
+    bio : Text;
+  };
+
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only members can view their profile");
@@ -154,25 +155,124 @@ actor {
   };
 
   public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only members can save their profile");
+    // Check if this is the first user creating a profile
+    let isFirstUser = userProfiles.size() == 0 and not membershipInitialized;
+
+    if (isFirstUser) {
+      // First user automatically becomes admin
+      AccessControl.assignRole(accessControlState, caller, caller, #admin);
+
+      // Create admin profile with president role
+      let adminProfile : UserProfile = {
+        name = profile.name;
+        memberRole = ?#president;
+        joinDate = Time.now();
+        bio = profile.bio;
+      };
+
+      userProfiles.add(caller, adminProfile);
+
+      // Add to members list
+      members := [
+        {
+          id = profile.name;
+          name = profile.name;
+          role = #president;
+          photoUrl = "";
+          bio = null;
+        },
+      ];
+
+      membershipInitialized := true;
+    } else {
+      // Regular user profile save - requires user permission
+      if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+        Runtime.trap("Unauthorized: Only members can save their profile");
+      };
+      userProfiles.add(caller, profile);
     };
-    userProfiles.add(caller, profile);
   };
 
-  // Member Management
-  public shared ({ caller }) func addMember(name : Text, role : MemberRole) : async () {
+  public shared ({ caller }) func initializeMembership() : async () {
+    if (membershipInitialized) {
+      Runtime.trap("Membership has already been initialized");
+    };
+
+    // Only allow if no profiles exist yet
+    if (userProfiles.size() > 0) {
+      Runtime.trap("Profiles already exist, use saveCallerUserProfile instead");
+    };
+
+    AccessControl.assignRole(accessControlState, caller, caller, #admin);
+
+    userProfiles.add(
+      caller,
+      {
+        name = "Admin";
+        memberRole = ?#president;
+        joinDate = Time.now();
+        bio = "System Admin";
+      },
+    );
+
+    // Add admin member to member list
+    members := [
+      {
+        id = "Admin";
+        name = "Admin";
+        role = #president;
+        photoUrl = "";
+        bio = null;
+      },
+    ];
+    membershipInitialized := true;
+  };
+
+  public shared ({ caller }) func addMember(name : Text, role : MemberRole, photoUrl : Text, bio : ?Text) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can add members");
     };
 
-    let memberExists = members.any(func(m) { m.name == name });
-    if (memberExists) {
-      Runtime.trap("Member already exists");
+    let newMember : Member = {
+      id = name.concat(Time.now().toText());
+      name;
+      role;
+      photoUrl;
+      bio;
+    };
+    members := members.concat([newMember]);
+  };
+
+  public shared ({ caller }) func updateMember(id : Text, name : Text, role : MemberRole, photoUrl : Text, bio : ?Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can update members");
     };
 
-    let newMember : Member = { name; role };
-    members := members.concat([newMember]);
+    let updatedMembers = members.map(
+      func(member) {
+        if (member.id == id) {
+          {
+            id;
+            name;
+            role;
+            photoUrl;
+            bio;
+          };
+        } else {
+          member;
+        };
+      }
+    );
+    members := updatedMembers;
+  };
+
+  public shared ({ caller }) func deleteMember(id : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can delete members");
+    };
+
+    let filteredMembers = members.filter(func(member) { member.id != id });
+    members := filteredMembers;
   };
 
   public query ({ caller }) func getMembers() : async [Member] {
@@ -182,7 +282,6 @@ actor {
     members.sort();
   };
 
-  // Events Management
   public shared ({ caller }) func addEvent(title : Text, description : Text, startTime : Time.Time, endTime : Time.Time, location : Text, eventType : EventType) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can add events");
@@ -214,7 +313,6 @@ actor {
     events.sort();
   };
 
-  // News Management
   public shared ({ caller }) func postNews(title : Text, content : Text, postedBy : Text) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can post news");

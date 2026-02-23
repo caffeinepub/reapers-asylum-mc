@@ -56,7 +56,13 @@ export const Event = IDL.Record({
   'location' : IDL.Text,
   'eventType' : EventType,
 });
-export const Member = IDL.Record({ 'name' : IDL.Text, 'role' : MemberRole });
+export const Member = IDL.Record({
+  'id' : IDL.Text,
+  'bio' : IDL.Opt(IDL.Text),
+  'name' : IDL.Text,
+  'role' : MemberRole,
+  'photoUrl' : IDL.Text,
+});
 export const News = IDL.Record({
   'id' : IDL.Text,
   'title' : IDL.Text,
@@ -98,8 +104,13 @@ export const idlService = IDL.Service({
       [],
       [],
     ),
-  'addMember' : IDL.Func([IDL.Text, MemberRole], [], []),
+  'addMember' : IDL.Func(
+      [IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
+      [],
+      [],
+    ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'deleteMember' : IDL.Func([IDL.Text], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
@@ -110,9 +121,15 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'initializeMembership' : IDL.Func([], [], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'updateMember' : IDL.Func(
+      [IDL.Text, IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
+      [],
+      [],
+    ),
 });
 
 export const idlInitArgs = [];
@@ -166,7 +183,13 @@ export const idlFactory = ({ IDL }) => {
     'location' : IDL.Text,
     'eventType' : EventType,
   });
-  const Member = IDL.Record({ 'name' : IDL.Text, 'role' : MemberRole });
+  const Member = IDL.Record({
+    'id' : IDL.Text,
+    'bio' : IDL.Opt(IDL.Text),
+    'name' : IDL.Text,
+    'role' : MemberRole,
+    'photoUrl' : IDL.Text,
+  });
   const News = IDL.Record({
     'id' : IDL.Text,
     'title' : IDL.Text,
@@ -208,8 +231,13 @@ export const idlFactory = ({ IDL }) => {
         [],
         [],
       ),
-    'addMember' : IDL.Func([IDL.Text, MemberRole], [], []),
+    'addMember' : IDL.Func(
+        [IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
+        [],
+        [],
+      ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'deleteMember' : IDL.Func([IDL.Text], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
@@ -220,9 +248,15 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'initializeMembership' : IDL.Func([], [], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'updateMember' : IDL.Func(
+        [IDL.Text, IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
+        [],
+        [],
+      ),
   });
 };
 

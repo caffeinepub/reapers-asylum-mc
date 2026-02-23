@@ -1,6 +1,6 @@
 import { useMembers } from '../hooks/useMembers';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Users, Shield, Navigation, FileText, DollarSign, User, UserPlus } from 'lucide-react';
@@ -109,20 +109,35 @@ export default function MembersPage() {
         </div>
       ) : members && members.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((member, index) => {
+          {members.map((member) => {
             const RoleIcon = getRoleIcon(member.role);
             return (
-              <Card key={index} className="border-2 hover:border-primary transition-colors">
+              <Card key={member.id} className="border-2 hover:border-primary transition-colors">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
                     <span className="font-display text-2xl">{member.name}</span>
                     <RoleIcon className="h-6 w-6 text-primary" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-3">
                   <Badge variant={getRoleVariant(member.role)} className="font-heading uppercase">
                     {getRoleLabel(member.role)}
                   </Badge>
+                  {member.photoUrl && (
+                    <div className="mt-4">
+                      <img
+                        src={member.photoUrl}
+                        alt={member.name}
+                        className="w-full h-48 object-cover border-2 border-border"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  )}
+                  {member.bio && (
+                    <CardDescription className="text-sm mt-2">{member.bio}</CardDescription>
+                  )}
                 </CardContent>
               </Card>
             );

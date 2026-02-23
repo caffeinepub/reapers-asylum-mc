@@ -1,11 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 9,
   "summary": "Motorcycle club app for Reapers Asylum MC",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Skull with motorcycle wings logo for club emblem, edgy and bold style with metallic finish (club-logo.dim_512x512.png)\n- Dark textured background with subtle leather and chrome patterns for hero section (hero-background.dim_1920x800.png)\n- Motorcycle silhouette icon for events section in metallic silver style (event-icon.dim_128x128.png)\n- Road banner image showing open highway with dramatic lighting for rides section (road-banner.dim_1200x400.png)",
   "existing_features": [
     {
       "id": "feature-create-a-homepage-that-showcases-the-reapers-asylum-mc-motorcycle-club-with-sections-for-club-overview-mission-statement-and-featured-content",
@@ -62,9 +61,140 @@
         "REQ-7"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-management-interface-accessible-only-to-existing-admins-where-they-can-view-current-admins-add-new-admin-principals-by-entering-their-principal-id-and-remove-admin-privileges-from-existing-admins",
+      "title": "Create an admin management interface accessible only to existing admins where they can view current admins, add new admin principals by entering their principal ID, and remove admin privileges from existing admins",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-currently-authenticated-user-s-principal-id-on-their-profile-or-in-a-settings-area-so-users-can-share-their-principal-id-to-request-admin-access",
+      "title": "Display the currently authenticated user's principal ID on their profile or in a settings area so users can share their principal ID to request admin access",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visual-indicators-throughout-the-application-showing-when-a-user-is-logged-in-with-admin-privileges-such-as-an-admin-badge-in-the-navbar-or-profile-area",
+      "title": "Add visual indicators throughout the application showing when a user is logged in with admin privileges, such as an admin badge in the navbar or profile area",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-profile-setup-flow-to-inform-the-user-if-they-have-been-automatically-granted-admin-privileges-during-their-first-login",
+      "title": "Update the frontend profile setup flow to inform the user if they have been automatically granted admin privileges during their first login",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-only-member-management-page-with-a-form-to-add-new-members-requiring-fields-for-name-and-role-with-optional-fields-for-photo-url-and-bio",
+      "title": "Create an admin-only Member Management page with a form to add new members, requiring fields for name and role, with optional fields for photo URL and bio",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-edit-interface-to-the-member-management-page-displaying-all-current-members-with-edit-and-delete-buttons-for-each-member",
+      "title": "Add an edit interface to the Member Management page displaying all current members with edit and delete buttons for each member",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-role-selector-dropdown-to-the-member-add-and-edit-forms-with-predefined-roles-president-vice-president-road-captain-secretary-sergeant-at-arms-treasurer-and-member",
+      "title": "Add a role selector dropdown to the member add and edit forms with predefined roles: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, and Member",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-navigation-link-to-the-member-management-page-in-the-navbar-visible-only-to-admin-users",
+      "title": "Add a navigation link to the Member Management page in the navbar, visible only to admin users",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-members-roster-page-to-dynamically-display-members-from-the-backend-instead-of-using-a-static-list-showing-member-name-role-photo-and-bio-when-available",
+      "title": "Update the Members roster page to dynamically display members from the backend instead of using a static list, showing member name, role, photo, and bio when available",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
     }
   ],
-  "new_feature_requests": [],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Implement admin role detection and management",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add backend functionality to designate specific principal IDs as administrators, allowing the owner to set themselves and other trusted members as admins",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Make the first logged-in user automatically an admin",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Modify the backend to automatically grant admin privileges to the first user who logs in and creates a profile, ensuring that at least one admin always exists in the system",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Build a member management interface for admins to add, edit, remove members and assign roles",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create backend functions to add new members with fields for name, role, photo URL, and optional bio, accessible only to admin users",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Create backend functions to update existing member information including name, role, photo URL, and bio, accessible only to admin users",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Create backend function to delete members from the roster, accessible only to admin users",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    }
+  ],
   "gameProjectType": "none",
   "projectName": "Reapers Asylum MC",
   "clarification_mode": "instant",

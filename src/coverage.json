@@ -1,255 +1,119 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-23T19:23:57.499Z",
+  "generatedAt": "2026-02-23T20:40:18.290Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 7,
-    "implemented": 7,
+    "total": 8,
+    "implemented": 5,
     "items": [
       {
-        "id": "REQ-1",
-        "summary": "Create a homepage that showcases the Reapers Asylum MC motorcycle club with sections for club overview, mission statement, and featured content",
+        "id": "REQ-14",
+        "summary": "Create backend functions to add new members with fields for name, role, photo URL, and optional bio, accessible only to admin users",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Create backend functions to update existing member information including name, role, photo URL, and bio, accessible only to admin users",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Create backend function to delete members from the roster, accessible only to admin users",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Create an admin-only Member Management page with a form to add new members, requiring fields for name and role, with optional fields for photo URL and bio",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx",
+          "frontend/src/hooks/useAddMember.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx",
+          "frontend/src/hooks/useAddMember.ts"
         ]
       },
       {
-        "id": "REQ-2",
-        "summary": "Implement a members roster page that displays club members with their roles (President, Vice President, Road Captain, Secretary, Members, etc.)",
+        "id": "REQ-18",
+        "summary": "Add an edit interface to the Member Management page displaying all current members with edit and delete buttons for each member",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/MembersPage.tsx",
-          "frontend/src/hooks/useMembers.ts",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx",
+          "frontend/src/hooks/useUpdateMember.ts",
+          "frontend/src/hooks/useDeleteMember.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/MembersPage.tsx",
-          "frontend/src/hooks/useMembers.ts",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx",
+          "frontend/src/hooks/useUpdateMember.ts",
+          "frontend/src/hooks/useDeleteMember.ts"
         ]
       },
       {
-        "id": "REQ-3",
-        "summary": "Create an events calendar feature where club members can view upcoming rides, meetings, and club events",
+        "id": "REQ-19",
+        "summary": "Add a role selector dropdown to the member add and edit forms with predefined roles: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, and Member",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/EventsPage.tsx",
-          "frontend/src/hooks/useEvents.ts",
-          "frontend/src/components/EventCard.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/EventsPage.tsx",
-          "frontend/src/hooks/useEvents.ts",
-          "frontend/src/components/EventCard.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx"
         ]
       },
       {
-        "id": "REQ-4",
-        "summary": "Implement user authentication using Internet Identity so members can log in and access member-only features",
+        "id": "REQ-20",
+        "summary": "Add a navigation link to the Member Management page in the navbar, visible only to admin users",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/LoginButton.tsx",
-          "frontend/src/components/ProfileSetupModal.tsx",
-          "frontend/src/hooks/useGetCallerUserProfile.ts",
-          "frontend/src/hooks/useSaveCallerUserProfile.ts",
           "frontend/src/components/Navbar.tsx",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/LoginButton.tsx",
-          "frontend/src/components/ProfileSetupModal.tsx",
-          "frontend/src/hooks/useGetCallerUserProfile.ts",
-          "frontend/src/hooks/useSaveCallerUserProfile.ts",
           "frontend/src/components/Navbar.tsx",
           "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-5",
-        "summary": "Create a club news feed where administrators can post announcements and updates visible to all members",
+        "id": "REQ-21",
+        "summary": "Update the Members roster page to dynamically display members from the backend instead of using a static list, showing member name, role, photo, and bio when available",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/NewsPage.tsx",
-          "frontend/src/hooks/useNewsFeed.ts",
-          "frontend/src/hooks/usePostNews.ts",
-          "frontend/src/components/NewsCard.tsx",
-          "frontend/src/components/PostNewsForm.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MembersPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/NewsPage.tsx",
-          "frontend/src/hooks/useNewsFeed.ts",
-          "frontend/src/hooks/usePostNews.ts",
-          "frontend/src/components/NewsCard.tsx",
-          "frontend/src/components/PostNewsForm.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Implement a photo gallery section for club ride photos and event memories",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/GalleryPage.tsx",
-          "frontend/src/components/PhotoGrid.tsx",
-          "frontend/src/components/PhotoLightbox.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/GalleryPage.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Design a bold, edgy visual theme inspired by motorcycle club aesthetics with dark colors, leather textures, metallic accents, and rugged typography that reflects the brotherhood and rebellious spirit of a motorcycle club, consistently applied across all pages",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/MembersPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/authorization/MixinAuthorization.mo",
-    "backend/authorization/access-control.mo",
-    "backend/blob-storage/Mixin.mo",
-    "backend/blob-storage/Storage.mo",
     "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
-    "build-template/Dockerfile",
-    "build-template/LICENSE",
-    "build-template/README.md",
-    "build-template/deploy.sh",
-    "build-template/icp.yaml",
-    "build-template/package.json",
-    "build-template/pnpm-lock.yaml",
-    "build-template/pnpm-workspace.yaml",
-    "build-template/scripts/prune-unused-images.js",
-    "build-template/scripts/resize-images.js",
-    "build-template/src/backend/canister.yaml",
-    "build-template/src/backend/system-idl/aaaaa-aa.did",
-    "build-template/src/frontend/canister.yaml",
-    "build-template/src/frontend/components.json",
-    "build-template/src/frontend/env.json",
-    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
-    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
-    "build-template/src/frontend/eslint.config.js",
-    "build-template/src/frontend/package.json",
-    "build-template/src/frontend/postcss.config.js",
-    "build-template/src/frontend/src/components/ui/accordion.tsx",
-    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
-    "build-template/src/frontend/src/components/ui/alert.tsx",
-    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
-    "build-template/src/frontend/src/components/ui/avatar.tsx",
-    "build-template/src/frontend/src/components/ui/badge.tsx",
-    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
-    "build-template/src/frontend/src/components/ui/button.tsx",
-    "build-template/src/frontend/src/components/ui/calendar.tsx",
-    "build-template/src/frontend/src/components/ui/card.tsx",
-    "build-template/src/frontend/src/components/ui/carousel.tsx",
-    "build-template/src/frontend/src/components/ui/chart.tsx",
-    "build-template/src/frontend/src/components/ui/checkbox.tsx",
-    "build-template/src/frontend/src/components/ui/collapsible.tsx",
-    "build-template/src/frontend/src/components/ui/command.tsx",
-    "build-template/src/frontend/src/components/ui/context-menu.tsx",
-    "build-template/src/frontend/src/components/ui/dialog.tsx",
-    "build-template/src/frontend/src/components/ui/drawer.tsx",
-    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
-    "build-template/src/frontend/src/components/ui/form.tsx",
-    "build-template/src/frontend/src/components/ui/hover-card.tsx",
-    "build-template/src/frontend/src/components/ui/input-otp.tsx",
-    "build-template/src/frontend/src/components/ui/input.tsx",
-    "build-template/src/frontend/src/components/ui/label.tsx",
-    "build-template/src/frontend/src/components/ui/menubar.tsx",
-    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
-    "build-template/src/frontend/src/components/ui/pagination.tsx",
-    "build-template/src/frontend/src/components/ui/popover.tsx",
-    "build-template/src/frontend/src/components/ui/progress.tsx",
-    "build-template/src/frontend/src/components/ui/radio-group.tsx",
-    "build-template/src/frontend/src/components/ui/resizable.tsx",
-    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
-    "build-template/src/frontend/src/components/ui/select.tsx",
-    "build-template/src/frontend/src/components/ui/separator.tsx",
-    "build-template/src/frontend/src/components/ui/sheet.tsx",
-    "build-template/src/frontend/src/components/ui/sidebar.tsx",
-    "build-template/src/frontend/src/components/ui/skeleton.tsx",
-    "build-template/src/frontend/src/components/ui/slider.tsx",
-    "build-template/src/frontend/src/components/ui/sonner.tsx",
-    "build-template/src/frontend/src/components/ui/switch.tsx",
-    "build-template/src/frontend/src/components/ui/table.tsx",
-    "build-template/src/frontend/src/components/ui/tabs.tsx",
-    "build-template/src/frontend/src/components/ui/textarea.tsx",
-    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
-    "build-template/src/frontend/src/components/ui/toggle.tsx",
-    "build-template/src/frontend/src/components/ui/tooltip.tsx",
-    "build-template/src/frontend/src/hooks/use-mobile.tsx",
-    "build-template/src/frontend/src/lib/utils.ts",
-    "build-template/src/frontend/tsconfig.json",
-    "build-template/src/frontend/vite.config.js",
-    "build-template/tsconfig.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/public/assets/generated/club-logo.dim_512x512.png",
-    "frontend/public/assets/generated/event-icon.dim_128x128.png",
-    "frontend/public/assets/generated/hero-background.dim_1920x800.png",
-    "frontend/public/assets/generated/road-banner.dim_1200x400.png",
     "frontend/src/App.tsx",
     "frontend/src/backend.d.ts",
     "frontend/src/backend.ts",
-    "frontend/src/components/EventCard.tsx",
-    "frontend/src/components/LoginButton.tsx",
     "frontend/src/components/Navbar.tsx",
-    "frontend/src/components/NewsCard.tsx",
-    "frontend/src/components/PostNewsForm.tsx",
-    "frontend/src/components/ProfileSetupModal.tsx",
-    "frontend/src/config.ts",
     "frontend/src/declarations/backend.did.d.ts",
     "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useEvents.ts",
-    "frontend/src/hooks/useGetCallerUserProfile.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useIsCallerAdmin.ts",
-    "frontend/src/hooks/useMembers.ts",
-    "frontend/src/hooks/useNewsFeed.ts",
-    "frontend/src/hooks/usePostNews.ts",
-    "frontend/src/hooks/useSaveCallerUserProfile.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/EventsPage.tsx",
-    "frontend/src/pages/GalleryPage.tsx",
-    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/hooks/useAddMember.ts",
+    "frontend/src/hooks/useDeleteMember.ts",
+    "frontend/src/hooks/useUpdateMember.ts",
+    "frontend/src/pages/MemberManagementPage.tsx",
     "frontend/src/pages/MembersPage.tsx",
-    "frontend/src/pages/NewsPage.tsx",
-    "frontend/src/ui-summary.json",
-    "frontend/src/utils/StorageClient.ts",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

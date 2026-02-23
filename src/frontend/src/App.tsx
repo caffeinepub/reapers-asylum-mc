@@ -8,6 +8,9 @@ import MembersPage from './pages/MembersPage';
 import EventsPage from './pages/EventsPage';
 import NewsPage from './pages/NewsPage';
 import GalleryPage from './pages/GalleryPage';
+import AdminManagementPage from './pages/AdminManagementPage';
+import ProfilePage from './pages/ProfilePage';
+import MemberManagementPage from './pages/MemberManagementPage';
 
 function Layout() {
   return (
@@ -72,7 +75,34 @@ const galleryRoute = createRoute({
   component: GalleryPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, membersRoute, eventsRoute, newsRoute, galleryRoute]);
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin',
+  component: AdminManagementPage,
+});
+
+const profileRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/profile',
+  component: ProfilePage,
+});
+
+const memberManagementRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/member-management',
+  component: MemberManagementPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  membersRoute,
+  eventsRoute,
+  newsRoute,
+  galleryRoute,
+  adminRoute,
+  profileRoute,
+  memberManagementRoute,
+]);
 
 const router = createRouter({ routeTree });
 

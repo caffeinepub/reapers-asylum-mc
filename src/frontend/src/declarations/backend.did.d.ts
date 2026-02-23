@@ -24,7 +24,13 @@ export type EventType = { 'social' : null } |
   { 'ride' : null } |
   { 'meeting' : null } |
   { 'fundraiser' : null };
-export interface Member { 'name' : string, 'role' : MemberRole }
+export interface Member {
+  'id' : string,
+  'bio' : [] | [string],
+  'name' : string,
+  'role' : MemberRole,
+  'photoUrl' : string,
+}
 export type MemberRole = { 'member' : null } |
   { 'vicePresident' : null } |
   { 'secretary' : null } |
@@ -81,17 +87,26 @@ export interface _SERVICE {
     [string, string, Time, Time, string, EventType],
     undefined
   >,
-  'addMember' : ActorMethod<[string, MemberRole], undefined>,
+  'addMember' : ActorMethod<
+    [string, MemberRole, string, [] | [string]],
+    undefined
+  >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'deleteMember' : ActorMethod<[string], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getEvents' : ActorMethod<[], Array<Event>>,
   'getMembers' : ActorMethod<[], Array<Member>>,
   'getNewsFeed' : ActorMethod<[], Array<News>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'initializeMembership' : ActorMethod<[], undefined>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'postNews' : ActorMethod<[string, string, string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'updateMember' : ActorMethod<
+    [string, string, MemberRole, string, [] | [string]],
+    undefined
+  >,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
