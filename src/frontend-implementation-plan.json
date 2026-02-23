@@ -1,115 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Build member management interface for admins",
+  "title": "Fix logo image not displaying on the site",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Create an admin-only Member Management page with a form to add new members",
+      "id": "REQ-25",
+      "summary": "Debug and fix the logo image display issue by verifying the image file exists, checking path references in Navbar.tsx and HomePage.tsx, and ensuring proper static asset serving",
       "acceptanceCriteria": [
-        "Page is accessible only to users with admin privileges",
-        "Form includes required fields for name and role",
-        "Form includes optional fields for photo URL and bio",
-        "Form validates inputs before submission",
-        "Success and error messages display via toast notifications",
-        "Member list refreshes after successful addition"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/MemberManagementPage.tsx",
-          "operation": "create",
-          "description": "Create admin-only member management page component that displays an AccessDeniedScreen for non-admin users and shows a member management interface for admins. Include a form section for adding new members with required fields (name, role) and optional fields (photo URL, bio). The page will integrate with useIsCallerAdmin for access control and useMembers to display the current roster."
-        },
-        {
-          "path": "frontend/src/hooks/useAddMember.ts",
-          "operation": "create",
-          "description": "Create mutation hook that calls actor.addMember(name, role, photoUrl, bio) from the backend interface. Handle the optional bio parameter (pass null if empty). On success, invalidate the 'members' query to refresh the list and show a success toast notification. On error, show an error toast notification."
-        }
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "summary": "Add edit and delete interface to the Member Management page",
-      "acceptanceCriteria": [
-        "Current members are displayed in a list or grid format",
-        "Each member entry shows an edit button and delete button",
-        "Edit button opens a form pre-filled with current member data",
-        "Delete button prompts for confirmation before removing",
-        "Changes reflect immediately in the member list",
-        "Toast notifications confirm successful edits or deletions"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/MemberManagementPage.tsx",
-          "operation": "modify",
-          "description": "Add a member list display section showing all current members in a card or table format. Each member entry includes edit and delete action buttons. Implement edit mode that shows a pre-filled form with the selected member's data. Add delete confirmation dialog before calling the delete mutation. Wire both edit and delete actions to their respective hooks."
-        },
-        {
-          "path": "frontend/src/hooks/useUpdateMember.ts",
-          "operation": "create",
-          "description": "Create mutation hook that calls actor.updateMember(id, name, role, photoUrl, bio) from the backend interface. Handle the optional bio parameter (pass null if empty). On success, invalidate the 'members' query to refresh the list and show a success toast notification. On error, show an error toast notification."
-        },
-        {
-          "path": "frontend/src/hooks/useDeleteMember.ts",
-          "operation": "create",
-          "description": "Create mutation hook that calls actor.deleteMember(id) from the backend interface. On success, invalidate the 'members' query to refresh the list and show a success toast notification. On error, show an error toast notification."
-        }
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "summary": "Add role selector dropdown to member forms with predefined club roles",
-      "acceptanceCriteria": [
-        "Dropdown includes all predefined club roles",
-        "Selected role is highlighted in the dropdown",
-        "Role selection is required for both add and edit operations",
-        "Role changes are saved when the form is submitted"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/MemberManagementPage.tsx",
-          "operation": "modify",
-          "description": "Add a role selector dropdown to both the add and edit member forms. Use a select element or shadcn/ui Select component with options for all MemberRole enum values: president, vicePresident, roadCaptain, secretary, treasurer, and member. Display human-readable labels (e.g., 'President', 'Vice President', 'Road Captain', 'Secretary', 'Treasurer', 'Member'). Mark the role field as required and ensure the selected role is properly highlighted."
-        }
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "summary": "Add navigation link to Member Management page in navbar for admin users",
-      "acceptanceCriteria": [
-        "Link appears in the navbar when user has admin privileges",
-        "Link is hidden for non-admin users",
-        "Link navigates to the Member Management page when clicked",
-        "Link styling matches the existing navbar design"
+        "The Reapers Asylum MC logo displays correctly in the Navbar component",
+        "The Reapers Asylum MC logo displays correctly in the HomePage hero section",
+        "The logo loads without 404 errors in the browser console",
+        "The logo is visible on both initial page load and after navigation"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Navbar.tsx",
           "operation": "modify",
-          "description": "Add a 'Manage Members' navigation link in the navbar that is conditionally rendered only when isAdmin is true. Place it in the admin section alongside the existing 'Admin' link. The link should navigate to '/member-management' and use the same styling as other navbar links."
+          "description": "Update the logo image reference to use the correct path frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png. Verify the img src attribute points to /assets/generated/reapers-asylum-logo.dim_400x400.png (the public path) and includes proper alt text. Add error handling or fallback if needed to debug loading issues."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Register the /member-management route in the router configuration. Import MemberManagementPage and add it as a new route that uses the shared Layout component. Ensure the route is accessible by navigating to the path."
+          "description": "Update the hero section logo image reference to use the correct path frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png. Verify the img src attribute points to /assets/generated/reapers-asylum-logo.dim_400x400.png (the public path) and includes proper alt text. Ensure the image styling and dimensions are appropriate for the hero section display."
         }
       ]
     },
     {
-      "id": "REQ-21",
-      "summary": "Update Members roster page to dynamically display members from backend",
+      "id": "REQ-26",
+      "summary": "Ensure the logo image file exists at frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png and is properly included in the build/deployment process",
       "acceptanceCriteria": [
-        "Members page fetches and displays members from backend data",
-        "Each member card shows name, role, and photo if provided",
-        "Bio displays when available",
-        "Empty state message displays when no members exist",
-        "Loading state displays while fetching members"
+        "The logo file exists at the correct path in the deployed application",
+        "The image can be accessed directly via its URL path",
+        "The build process includes the generated assets in the deployment bundle"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/MembersPage.tsx",
-          "operation": "modify",
-          "description": "Update the MembersPage component to use the useMembers hook to fetch member data dynamically from the backend instead of displaying a static list. Render member cards from the fetched data, showing name, role, and photo URL. Display the bio field when it is available. Add an empty state message when no members exist and show loading skeletons while data is being fetched."
+          "path": "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png",
+          "operation": "create",
+          "description": "Ensure the generated logo image file frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png exists in the public assets directory. This file should be the Reapers Asylum MC logo featuring a grim reaper with crossed scythes, 'REAPERS ASYLUM' top rocker text, 'NOMADS' bottom rocker text, and 'MC' patch, rendered on transparent background with high contrast for dark backgrounds. Verify the file is accessible as a static asset at /assets/generated/reapers-asylum-logo.dim_400x400.png."
         }
       ]
     }

@@ -1,119 +1,49 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-23T20:40:18.290Z",
+  "generatedAt": "2026-02-23T20:59:41.697Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 8,
-    "implemented": 5,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-14",
-        "summary": "Create backend functions to add new members with fields for name, role, photo URL, and optional bio, accessible only to admin users",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-15",
-        "summary": "Create backend functions to update existing member information including name, role, photo URL, and bio, accessible only to admin users",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-16",
-        "summary": "Create backend function to delete members from the roster, accessible only to admin users",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-17",
-        "summary": "Create an admin-only Member Management page with a form to add new members, requiring fields for name and role, with optional fields for photo URL and bio",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx",
-          "frontend/src/hooks/useAddMember.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx",
-          "frontend/src/hooks/useAddMember.ts"
-        ]
-      },
-      {
-        "id": "REQ-18",
-        "summary": "Add an edit interface to the Member Management page displaying all current members with edit and delete buttons for each member",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx",
-          "frontend/src/hooks/useUpdateMember.ts",
-          "frontend/src/hooks/useDeleteMember.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx",
-          "frontend/src/hooks/useUpdateMember.ts",
-          "frontend/src/hooks/useDeleteMember.ts"
-        ]
-      },
-      {
-        "id": "REQ-19",
-        "summary": "Add a role selector dropdown to the member add and edit forms with predefined roles: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, and Member",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-20",
-        "summary": "Add a navigation link to the Member Management page in the navbar, visible only to admin users",
+        "id": "REQ-25",
+        "summary": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/Navbar.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/HomePage.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/Navbar.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/pages/HomePage.tsx"
         ]
       },
       {
-        "id": "REQ-21",
-        "summary": "Update the Members roster page to dynamically display members from the backend instead of using a static list, showing member name, role, photo, and bio when available",
+        "id": "REQ-26",
+        "summary": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/MembersPage.tsx"
+          "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png"
         ],
         "matchedFiles": [
-          "frontend/src/pages/MembersPage.tsx"
+          "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
+    "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png",
     "frontend/src/components/Navbar.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useAddMember.ts",
-    "frontend/src/hooks/useDeleteMember.ts",
-    "frontend/src/hooks/useUpdateMember.ts",
-    "frontend/src/pages/MemberManagementPage.tsx",
-    "frontend/src/pages/MembersPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

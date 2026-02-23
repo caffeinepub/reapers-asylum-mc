@@ -1,14 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Build a member management interface for admins to add, edit, and remove club members, and display them dynamically on the Members roster page.
+**Goal:** Fix the Reapers Asylum MC logo not displaying on the website.
 
 **Planned changes:**
-- Create backend functions for adding, updating, and deleting members (admin-only)
-- Build an admin-only Member Management page with forms to add and edit members
-- Add role selector dropdown with predefined club roles (President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Member)
-- Display member list with edit and delete buttons for each member
-- Add Member Management navigation link visible only to admins
-- Update Members roster page to fetch and display members dynamically from backend
+- Debug and fix logo image display in Navbar and HomePage components
+- Verify logo file exists at correct path (frontend/public/assets/generated/reapers-asylum-logo.png)
+- Ensure image path references are correct in components
+- Confirm logo is properly served as a static asset
+- Regenerate logo image if missing from assets directory
 
-**User-visible outcome:** Admins can manage the club roster by adding new members, editing member information (name, role, photo URL, bio), changing member roles, and removing members. The Members page displays the live roster dynamically instead of showing static placeholder data.
+**User-visible outcome:** The Reapers Asylum MC logo displays correctly in the navigation bar and homepage hero section without any 404 errors.

@@ -2,11 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-an-admin-only-member-management-page-with-a-form-to-add-new-members-requiring-fields-for-name-and-role-with-optional-fields-for-photo-url-and-bio",
-      "featureTitle": "Create an admin-only Member Management page with a form to add new members, requiring fields for name and role, with optional fields for photo URL and bio",
+      "featureId": "feature-debug-and-fix-the-logo-image-display-issue-by-verifying-the-image-file-exists-at-frontend-public-assets-generated-reapers-asylum-logo-png-checking-that-the-image-path-references-in-navbar-tsx-and-homepage-tsx-are-correct-and-ensuring-the-image-is-being-properly-served-as-a-static-asset",
+      "featureTitle": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
       "files": [
-        "frontend/src/hooks/useAddMember.ts",
-        "frontend/src/pages/MemberManagementPage.tsx"
+        "frontend/src/components/Navbar.tsx",
+        "frontend/src/pages/HomePage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,18 +18,14 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-25"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-an-edit-interface-to-the-member-management-page-displaying-all-current-members-with-edit-and-delete-buttons-for-each-member",
-      "featureTitle": "Add an edit interface to the Member Management page displaying all current members with edit and delete buttons for each member",
-      "files": [
-        "frontend/src/hooks/useDeleteMember.ts",
-        "frontend/src/hooks/useUpdateMember.ts",
-        "frontend/src/pages/MemberManagementPage.tsx"
-      ],
+      "featureId": "feature-if-the-logo-image-file-is-missing-from-frontend-public-assets-generated-regenerate-it-and-ensure-it-is-properly-copied-to-the-public-assets-directory-during-the-build-process",
+      "featureTitle": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
+      "files": [],
       "components": [
         "authorization@4.0.0",
         "blob-storage@4.0.0",
@@ -40,68 +36,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-18"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-role-selector-dropdown-to-the-member-add-and-edit-forms-with-predefined-roles-president-vice-president-road-captain-secretary-sergeant-at-arms-treasurer-and-member",
-      "featureTitle": "Add a role selector dropdown to the member add and edit forms with predefined roles: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, and Member",
-      "files": [
-        "frontend/src/pages/MemberManagementPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-19"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-navigation-link-to-the-member-management-page-in-the-navbar-visible-only-to-admin-users",
-      "featureTitle": "Add a navigation link to the Member Management page in the navbar, visible only to admin users",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Navbar.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-20"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-members-roster-page-to-dynamically-display-members-from-the-backend-instead-of-using-a-static-list-showing-member-name-role-photo-and-bio-when-available",
-      "featureTitle": "Update the Members roster page to dynamically display members from the backend instead of using a static list, showing member name, role, photo, and bio when available",
-      "files": [
-        "frontend/src/pages/MembersPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-21"
+        "REQ-26"
       ],
       "confidence": "high"
     }

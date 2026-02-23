@@ -45,9 +45,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <img
-            src="/assets/generated/club-logo.dim_512x512.png"
+            src="/assets/generated/reapers-asylum-logo.dim_400x400.png"
             alt="Reapers Asylum MC"
-            className="h-32 w-32 mx-auto mb-6 drop-shadow-2xl"
+            className="h-48 w-48 md:h-64 md:w-64 mx-auto mb-8 drop-shadow-2xl object-contain"
           />
           <h1 className="font-display text-6xl md:text-8xl mb-6 chrome-text drop-shadow-lg">
             Reapers Asylum MC

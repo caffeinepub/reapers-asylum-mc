@@ -6,13 +6,13 @@ import Order "mo:core/Order";
 import Bool "mo:core/Bool";
 import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
-import Migration "migration";
+
 
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import MixinStorage "blob-storage/Mixin";
 
-(with migration = Migration.run)
+
 actor {
   // Access control state
   let accessControlState = AccessControl.initState();

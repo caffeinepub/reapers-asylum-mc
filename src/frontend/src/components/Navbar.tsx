@@ -43,7 +43,11 @@ export default function Navbar() {
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src="/assets/generated/club-logo.dim_512x512.png" alt="Reapers Asylum MC" className="h-14 w-14" />
+            <img 
+              src="/assets/generated/reapers-asylum-logo.dim_400x400.png" 
+              alt="Reapers Asylum MC" 
+              className="h-14 w-14 object-contain transition-transform group-hover:scale-105" 
+            />
             <div className="hidden sm:block">
               <h1 className="font-display text-2xl leading-none chrome-text group-hover:animate-pulse-glow">
                 Reapers Asylum MC

@@ -1,10 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
+  "projectStateVersion": 13,
   "summary": "Motorcycle club app for Reapers Asylum MC",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Logo image not displaying on the site after deployment"
+  ],
+  "isFixRequest": true,
+  "imageRequirements": "## Required Images\n- Reapers Asylum MC logo featuring a grim reaper with crossed scythes, 'REAPERS ASYLUM' top rocker text, 'NOMADS' bottom rocker text, and 'MC' patch, rendered on transparent background with high contrast for dark backgrounds (reapers-asylum-logo.dim_400x400.png)",
   "existing_features": [
     {
       "id": "feature-create-a-homepage-that-showcases-the-reapers-asylum-mc-motorcycle-club-with-sections-for-club-overview-mission-statement-and-featured-content",
@@ -133,6 +136,38 @@
         "REQ-21"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-navbar-component-to-use-the-new-reapers-asylum-mc-logo-image-instead-of-the-current-placeholder",
+      "title": "Update the Navbar component to use the new Reapers Asylum MC logo image instead of the current placeholder",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-hero-section-to-feature-the-new-reapers-asylum-mc-logo-as-the-primary-visual-element",
+      "title": "Update the HomePage hero section to feature the new Reapers Asylum MC logo as the primary visual element",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-debug-and-fix-the-logo-image-display-issue-by-verifying-the-image-file-exists-at-frontend-public-assets-generated-reapers-asylum-logo-png-checking-that-the-image-path-references-in-navbar-tsx-and-homepage-tsx-are-correct-and-ensuring-the-image-is-being-properly-served-as-a-static-asset",
+      "title": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-if-the-logo-image-file-is-missing-from-frontend-public-assets-generated-regenerate-it-and-ensure-it-is-properly-copied-to-the-public-assets-directory-during-the-build-process",
+      "title": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -191,6 +226,20 @@
       "summary": "Create backend function to delete members from the roster, accessible only to admin users",
       "reqIds": [
         "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add the provided logo to the site",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Replace the existing placeholder logo throughout the site with the uploaded Reapers Asylum MC logo image featuring the grim reaper with scythes and 'REAPERS ASYLUM' top rocker and 'NOMADS' bottom rocker with MC patch",
+      "reqIds": [
+        "REQ-22"
       ],
       "status": "pending"
     }
