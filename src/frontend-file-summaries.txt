@@ -6,7 +6,7 @@
   "frontend/src/components/LoginButton.tsx": "Authentication button component using Internet Identity hook with login/logout functionality, loading states, and query cache clearing on logout.",
   "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup with name and bio inputs, checks if user was granted admin privileges after profile creation using useActor hook and displays a success notification with Shield icon, invalidating admin status query for immediate UI updates.",
   "frontend/src/pages/HomePage.tsx": "Homepage featuring the Reapers Asylum MC logo (corrected path to /assets/generated/reapers-asylum-logo.dim_400x400.png) prominently in the hero section alongside club name, mission statement, feature cards grid, and call-to-action.",
-  "frontend/src/pages/MembersPage.tsx": "Members roster page displaying club members dynamically from backend with photos, bios, role badges, loading states, and empty state handling.",
+  "frontend/src/pages/MembersPage.tsx": "Members roster page displaying club members dynamically from backend with photos, bios, role badges showing all 11 MC ranks with unique icons (Crown for President, Star for Vice President, Compass for Road Captain, Clipboard for Secretary, Shield for Sergeant at Arms, DollarSign for Treasurer, Flame for Enforcer, ShieldCheck for Tail Gunner, Heart for Chaplain, UserPlus for Prospect, User for Member), loading states, and empty state handling.",
   "frontend/src/pages/EventsPage.tsx": "Events calendar page with road banner header, displaying events chronologically with EventCard components, restricted to authenticated users.",
   "frontend/src/pages/NewsPage.tsx": "News feed page showing announcements in reverse chronological order with admin-only PostNewsForm section for creating new posts.",
   "frontend/src/pages/GalleryPage.tsx": "Photo gallery page placeholder with authentication guard, ready for future photo display implementation using blob storage.",
@@ -29,5 +29,5 @@
   "frontend/src/hooks/useAddMember.ts": "React Query mutation hook for adding new members with automatic query invalidation and toast notifications.",
   "frontend/src/hooks/useUpdateMember.ts": "React Query mutation hook for updating existing member information with automatic query invalidation and toast notifications.",
   "frontend/src/hooks/useDeleteMember.ts": "React Query mutation hook for deleting members with automatic query invalidation and toast notifications.",
-  "frontend/src/pages/MemberManagementPage.tsx": "Admin-only member management page with forms for adding/editing members, role selector dropdown, member list display with edit/delete actions, and confirmation dialogs."
+  "frontend/src/pages/MemberManagementPage.tsx": "Admin-only member management page with forms for adding/editing members, role selector dropdown including all 11 MC ranks (President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, Member), member list display with unique icons for each rank, and edit/delete actions with confirmation dialogs."
 }

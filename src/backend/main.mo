@@ -7,12 +7,12 @@ import Bool "mo:core/Bool";
 import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
 
-
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import MixinStorage "blob-storage/Mixin";
+import Migration "migration";
 
-
+(with migration = Migration.run)
 actor {
   // Access control state
   let accessControlState = AccessControl.initState();
@@ -32,9 +32,13 @@ actor {
     #vicePresident;
     #roadCaptain;
     #secretary;
+    #sergeantAtArms;
     #treasurer;
+    #enforcer;
+    #tailGunner;
+    #chaplain;
+    #prospect;
     #member;
-    #guest;
   };
 
   // Explicit compare implementation for MemberRole
@@ -43,27 +47,55 @@ actor {
       let roleOrder = switch (role1, role2) {
         case (#president, #president) { return #equal };
         case (#president, _) { return #less };
+
         case (#vicePresident, #president) { return #greater };
         case (#vicePresident, #vicePresident) { return #equal };
         case (#vicePresident, _) { return #less };
+
         case (#roadCaptain, #president or #vicePresident) { return #greater };
         case (#roadCaptain, #roadCaptain) { return #equal };
         case (#roadCaptain, _) { return #less };
-        case (#secretary, #president or #vicePresident or #roadCaptain) {
-          return #greater;
-        };
+
+        case (#secretary, #president or #vicePresident or #roadCaptain) { return #greater };
         case (#secretary, #secretary) { return #equal };
         case (#secretary, _) { return #less };
-        case (#treasurer, #president or #vicePresident or #roadCaptain or #secretary) {
+
+        case (#sergeantAtArms, #president or #vicePresident or #roadCaptain or #secretary) {
+          return #greater;
+        };
+        case (#sergeantAtArms, #sergeantAtArms) { return #equal };
+        case (#sergeantAtArms, _) { return #less };
+
+        case (#treasurer, #president or #vicePresident or #roadCaptain or #secretary or #sergeantAtArms) {
           return #greater;
         };
         case (#treasurer, #treasurer) { return #equal };
         case (#treasurer, _) { return #less };
-        case (#member, #guest) { #less };
-        case (#member, #member) { #equal };
-        case (#member, _) { #greater };
-        case (#guest, #guest) { return #equal };
-        case (#guest, _) { return #greater };
+
+        case (#enforcer, #president or #vicePresident or #roadCaptain or #secretary or #sergeantAtArms or #treasurer) {
+          return #greater;
+        };
+        case (#enforcer, #enforcer) { return #equal };
+        case (#enforcer, _) { return #less };
+
+        case (#tailGunner, #president or #vicePresident or #roadCaptain or #secretary or #sergeantAtArms or #treasurer or #enforcer) {
+          return #greater;
+        };
+        case (#tailGunner, #tailGunner) { return #equal };
+        case (#tailGunner, _) { return #less };
+
+        case (#chaplain, #president or #vicePresident or #roadCaptain or #secretary or #sergeantAtArms or #treasurer or #enforcer or #tailGunner) {
+          return #greater;
+        };
+        case (#chaplain, #chaplain) { return #equal };
+        case (#chaplain, _) { return #less };
+
+        case (#prospect, #member) { #less };
+        case (#prospect, #prospect) { #equal };
+        case (#prospect, _) { #greater };
+
+        case (#member, #member) { return #equal };
+        case (#member, _) { return #greater };
       };
       roleOrder;
     };
@@ -191,41 +223,6 @@ actor {
       };
       userProfiles.add(caller, profile);
     };
-  };
-
-  public shared ({ caller }) func initializeMembership() : async () {
-    if (membershipInitialized) {
-      Runtime.trap("Membership has already been initialized");
-    };
-
-    // Only allow if no profiles exist yet
-    if (userProfiles.size() > 0) {
-      Runtime.trap("Profiles already exist, use saveCallerUserProfile instead");
-    };
-
-    AccessControl.assignRole(accessControlState, caller, caller, #admin);
-
-    userProfiles.add(
-      caller,
-      {
-        name = "Admin";
-        memberRole = ?#president;
-        joinDate = Time.now();
-        bio = "System Admin";
-      },
-    );
-
-    // Add admin member to member list
-    members := [
-      {
-        id = "Admin";
-        name = "Admin";
-        role = #president;
-        photoUrl = "";
-        bio = null;
-      },
-    ];
-    membershipInitialized := true;
   };
 
   public shared ({ caller }) func addMember(name : Text, role : MemberRole, photoUrl : Text, bio : ?Text) : async () {

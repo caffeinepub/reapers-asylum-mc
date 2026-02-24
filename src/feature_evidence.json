@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-debug-and-fix-the-logo-image-display-issue-by-verifying-the-image-file-exists-at-frontend-public-assets-generated-reapers-asylum-logo-png-checking-that-the-image-path-references-in-navbar-tsx-and-homepage-tsx-are-correct-and-ensuring-the-image-is-being-properly-served-as-a-static-asset",
-      "featureTitle": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
+      "featureId": "feature-update-the-role-selector-dropdown-in-the-member-management-page-to-include-all-standard-motorcycle-club-ranks-president-vice-president-road-captain-secretary-sergeant-at-arms-treasurer-enforcer-tail-gunner-chaplain-prospect-and-member",
+      "featureTitle": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
       "files": [
-        "frontend/src/components/Navbar.tsx",
-        "frontend/src/pages/HomePage.tsx"
+        "frontend/src/pages/MemberManagementPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,14 +17,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-25"
+        "REQ-28"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-if-the-logo-image-file-is-missing-from-frontend-public-assets-generated-regenerate-it-and-ensure-it-is-properly-copied-to-the-public-assets-directory-during-the-build-process",
-      "featureTitle": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
-      "files": [],
+      "featureId": "feature-update-the-members-roster-page-role-icons-and-badges-to-visually-represent-all-motorcycle-club-ranks-with-appropriate-icons-president-crown-vice-president-star-road-captain-compass-secretary-clipboard-sergeant-at-arms-shield-treasurer-dollar-sign-enforcer-fist-tail-gunner-shield-check-chaplain-heart-prospect-user-plus-and-member-user",
+      "featureTitle": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
+      "files": [
+        "frontend/src/pages/MembersPage.tsx"
+      ],
       "components": [
         "authorization@4.0.0",
         "blob-storage@4.0.0",
@@ -36,7 +37,27 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-29"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-member-management-page-role-icons-to-match-the-expanded-set-of-motorcycle-club-ranks-ensuring-visual-consistency-with-the-members-roster-page",
+      "featureTitle": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
+      "files": [
+        "frontend/src/pages/MemberManagementPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-30"
       ],
       "confidence": "high"
     }

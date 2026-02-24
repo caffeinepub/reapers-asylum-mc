@@ -29,10 +29,14 @@ export const EventType = IDL.Variant({
 });
 export const MemberRole = IDL.Variant({
   'member' : IDL.Null,
+  'tailGunner' : IDL.Null,
+  'sergeantAtArms' : IDL.Null,
   'vicePresident' : IDL.Null,
+  'enforcer' : IDL.Null,
+  'prospect' : IDL.Null,
   'secretary' : IDL.Null,
   'roadCaptain' : IDL.Null,
-  'guest' : IDL.Null,
+  'chaplain' : IDL.Null,
   'treasurer' : IDL.Null,
   'president' : IDL.Null,
 });
@@ -121,7 +125,6 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
-  'initializeMembership' : IDL.Func([], [], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
@@ -156,10 +159,14 @@ export const idlFactory = ({ IDL }) => {
   });
   const MemberRole = IDL.Variant({
     'member' : IDL.Null,
+    'tailGunner' : IDL.Null,
+    'sergeantAtArms' : IDL.Null,
     'vicePresident' : IDL.Null,
+    'enforcer' : IDL.Null,
+    'prospect' : IDL.Null,
     'secretary' : IDL.Null,
     'roadCaptain' : IDL.Null,
-    'guest' : IDL.Null,
+    'chaplain' : IDL.Null,
     'treasurer' : IDL.Null,
     'president' : IDL.Null,
   });
@@ -248,7 +255,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
-    'initializeMembership' : IDL.Func([], [], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),

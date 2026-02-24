@@ -46,10 +46,14 @@ export enum EventType {
 }
 export enum MemberRole {
     member = "member",
+    tailGunner = "tailGunner",
+    sergeantAtArms = "sergeantAtArms",
     vicePresident = "vicePresident",
+    enforcer = "enforcer",
+    prospect = "prospect",
     secretary = "secretary",
     roadCaptain = "roadCaptain",
-    guest = "guest",
+    chaplain = "chaplain",
     treasurer = "treasurer",
     president = "president"
 }
@@ -69,7 +73,6 @@ export interface backendInterface {
     getMembers(): Promise<Array<Member>>;
     getNewsFeed(): Promise<Array<News>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
-    initializeMembership(): Promise<void>;
     isCallerAdmin(): Promise<boolean>;
     postNews(title: string, content: string, postedBy: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;

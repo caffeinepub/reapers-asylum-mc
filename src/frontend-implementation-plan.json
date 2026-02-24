@@ -1,43 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix logo image not displaying on the site",
+  "title": "Update member roles to include all motorcycle club ranks",
   "requirements": [
     {
-      "id": "REQ-25",
-      "summary": "Debug and fix the logo image display issue by verifying the image file exists, checking path references in Navbar.tsx and HomePage.tsx, and ensuring proper static asset serving",
+      "id": "REQ-28",
+      "summary": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks",
       "acceptanceCriteria": [
-        "The Reapers Asylum MC logo displays correctly in the Navbar component",
-        "The Reapers Asylum MC logo displays correctly in the HomePage hero section",
-        "The logo loads without 404 errors in the browser console",
-        "The logo is visible on both initial page load and after navigation"
+        "Add member form displays all MC ranks in dropdown",
+        "Edit member form displays all MC ranks in dropdown",
+        "All ranks are properly capitalized and formatted"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Navbar.tsx",
+          "path": "frontend/src/pages/MemberManagementPage.tsx",
           "operation": "modify",
-          "description": "Update the logo image reference to use the correct path frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png. Verify the img src attribute points to /assets/generated/reapers-asylum-logo.dim_400x400.png (the public path) and includes proper alt text. Add error handling or fallback if needed to debug loading issues."
-        },
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Update the hero section logo image reference to use the correct path frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png. Verify the img src attribute points to /assets/generated/reapers-asylum-logo.dim_400x400.png (the public path) and includes proper alt text. Ensure the image styling and dimensions are appropriate for the hero section display."
+          "description": "Update the role selector dropdown to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member. Ensure the dropdown displays all ranks with proper capitalization and formatting in both add and edit member forms."
         }
       ]
     },
     {
-      "id": "REQ-26",
-      "summary": "Ensure the logo image file exists at frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png and is properly included in the build/deployment process",
+      "id": "REQ-29",
+      "summary": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons",
       "acceptanceCriteria": [
-        "The logo file exists at the correct path in the deployed application",
-        "The image can be accessed directly via its URL path",
-        "The build process includes the generated assets in the deployment bundle"
+        "Each MC rank displays with a unique, appropriate icon",
+        "Role badges maintain consistent styling with existing design",
+        "Icons are sourced from lucide-react library for consistency"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png",
-          "operation": "create",
-          "description": "Ensure the generated logo image file frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png exists in the public assets directory. This file should be the Reapers Asylum MC logo featuring a grim reaper with crossed scythes, 'REAPERS ASYLUM' top rocker text, 'NOMADS' bottom rocker text, and 'MC' patch, rendered on transparent background with high contrast for dark backgrounds. Verify the file is accessible as a static asset at /assets/generated/reapers-asylum-logo.dim_400x400.png."
+          "path": "frontend/src/pages/MembersPage.tsx",
+          "operation": "modify",
+          "description": "Update role icons and badges to represent all motorcycle club ranks with appropriate lucide-react icons: President (Crown), Vice President (Star), Road Captain (Compass), Secretary (Clipboard), Sergeant at Arms (Shield), Treasurer (DollarSign), Enforcer (Flame), Tail Gunner (ShieldCheck), Chaplain (Heart), Prospect (UserPlus), and Member (User). Maintain consistent styling with existing motorcycle club theme and ensure each rank displays its unique icon."
+        }
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "summary": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks",
+      "acceptanceCriteria": [
+        "Member Management page displays same icons as Members roster",
+        "Icons appear correctly in the member list table",
+        "Visual styling matches the existing motorcycle club theme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MemberManagementPage.tsx",
+          "operation": "modify",
+          "description": "Update role icons in the member list table to match the expanded set of motorcycle club ranks using the same icon mapping as the Members roster page (President: Crown, Vice President: Star, Road Captain: Compass, Secretary: Clipboard, Sergeant at Arms: Shield, Treasurer: DollarSign, Enforcer: Flame, Tail Gunner: ShieldCheck, Chaplain: Heart, Prospect: UserPlus, Member: User). Ensure visual styling matches the existing motorcycle club theme and maintains consistency with the Members roster page."
         }
       ]
     }

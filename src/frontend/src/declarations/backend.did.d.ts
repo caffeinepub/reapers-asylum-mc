@@ -32,10 +32,14 @@ export interface Member {
   'photoUrl' : string,
 }
 export type MemberRole = { 'member' : null } |
+  { 'tailGunner' : null } |
+  { 'sergeantAtArms' : null } |
   { 'vicePresident' : null } |
+  { 'enforcer' : null } |
+  { 'prospect' : null } |
   { 'secretary' : null } |
   { 'roadCaptain' : null } |
-  { 'guest' : null } |
+  { 'chaplain' : null } |
   { 'treasurer' : null } |
   { 'president' : null };
 export interface News {
@@ -99,7 +103,6 @@ export interface _SERVICE {
   'getMembers' : ActorMethod<[], Array<Member>>,
   'getNewsFeed' : ActorMethod<[], Array<News>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
-  'initializeMembership' : ActorMethod<[], undefined>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'postNews' : ActorMethod<[string, string, string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,

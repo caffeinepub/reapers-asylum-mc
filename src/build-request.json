@@ -1,60 +1,95 @@
 {
   "kind": "build_request",
-  "title": "Fix logo image not displaying on the site",
-  "priority": "high",
+  "title": "Update member roles to include all motorcycle club ranks",
+  "projectName": "Reapers Asylum MC",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-25",
-      "text": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
-      "target": "frontend",
+      "id": "REQ-27",
+      "text": "Expand the backend Member type's role field to support all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-6"
         ],
         "quotes": [
-          "The image did not show"
+          "Can we update the roles roster to include all mc ranks"
         ]
       },
       "acceptanceCriteria": [
-        "The Reapers Asylum MC logo displays correctly in the Navbar component",
-        "The Reapers Asylum MC logo displays correctly in the HomePage hero section",
-        "The logo loads without 404 errors in the browser console",
-        "The logo is visible on both initial page load and after navigation"
+        "Backend Member type accepts all standard MC ranks",
+        "Existing members with current roles remain unaffected",
+        "Role validation ensures only valid MC ranks can be assigned"
       ]
     },
     {
-      "id": "REQ-26",
-      "text": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
+      "id": "REQ-28",
+      "text": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-6"
         ],
         "quotes": [
-          "The image did not show"
+          "Can we update the roles roster to include all mc ranks"
         ]
       },
       "acceptanceCriteria": [
-        "The logo file exists at the correct path in the deployed application",
-        "The image can be accessed directly via its URL path",
-        "The build process includes the generated assets in the deployment bundle"
+        "Add member form displays all MC ranks in dropdown",
+        "Edit member form displays all MC ranks in dropdown",
+        "All ranks are properly capitalized and formatted"
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Can we update the roles roster to include all mc ranks"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each MC rank displays with a unique, appropriate icon",
+        "Role badges maintain consistent styling with existing design",
+        "Icons are sourced from lucide-react library for consistency"
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "text": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Can we update the roles roster to include all mc ranks"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Member Management page displays same icons as Members roster",
+        "Icons appear correctly in the member list table",
+        "Visual styling matches the existing motorcycle club theme"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the backend - this is a frontend asset display issue",
-    "Maintain the existing image path structure using frontend/public/assets/generated/",
-    "Keep the logo implementation in Navbar.tsx and HomePage.tsx consistent with the current approach"
+    "Do not change the backend single-actor architecture",
+    "Maintain existing member data and do not require migration for this change",
+    "Preserve the existing role-based visual styling and theme"
   ],
   "nonGoals": [
-    "Creating a new logo design or replacing the existing logo",
-    "Changing the overall navigation or homepage layout",
-    "Modifying authentication or admin features"
+    "Changing the authentication system",
+    "Modifying admin privilege logic",
+    "Altering the news feed or events features",
+    "Redesigning the overall visual theme"
   ],
   "imageRequirements": {
-    "required": [
-      "Reapers Asylum MC logo featuring a grim reaper with crossed scythes, 'REAPERS ASYLUM' top rocker text, 'NOMADS' bottom rocker text, and 'MC' patch, rendered on transparent background with high contrast for dark backgrounds (reapers-asylum-logo.dim_400x400.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

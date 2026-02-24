@@ -139,10 +139,14 @@ export enum EventType {
 }
 export enum MemberRole {
     member = "member",
+    tailGunner = "tailGunner",
+    sergeantAtArms = "sergeantAtArms",
     vicePresident = "vicePresident",
+    enforcer = "enforcer",
+    prospect = "prospect",
     secretary = "secretary",
     roadCaptain = "roadCaptain",
-    guest = "guest",
+    chaplain = "chaplain",
     treasurer = "treasurer",
     president = "president"
 }
@@ -169,7 +173,6 @@ export interface backendInterface {
     getMembers(): Promise<Array<Member>>;
     getNewsFeed(): Promise<Array<News>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
-    initializeMembership(): Promise<void>;
     isCallerAdmin(): Promise<boolean>;
     postNews(title: string, content: string, postedBy: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
@@ -416,20 +419,6 @@ export class Backend implements backendInterface {
             return from_candid_opt_n15(this._uploadFile, this._downloadFile, result);
         }
     }
-    async initializeMembership(): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.initializeMembership();
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.initializeMembership();
-            return result;
-        }
-    }
     async isCallerAdmin(): Promise<boolean> {
         if (this.processError) {
             try {
@@ -604,19 +593,27 @@ function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint
 function from_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     member: null;
 } | {
+    tailGunner: null;
+} | {
+    sergeantAtArms: null;
+} | {
     vicePresident: null;
+} | {
+    enforcer: null;
+} | {
+    prospect: null;
 } | {
     secretary: null;
 } | {
     roadCaptain: null;
 } | {
-    guest: null;
+    chaplain: null;
 } | {
     treasurer: null;
 } | {
     president: null;
 }): MemberRole {
-    return "member" in value ? MemberRole.member : "vicePresident" in value ? MemberRole.vicePresident : "secretary" in value ? MemberRole.secretary : "roadCaptain" in value ? MemberRole.roadCaptain : "guest" in value ? MemberRole.guest : "treasurer" in value ? MemberRole.treasurer : "president" in value ? MemberRole.president : value;
+    return "member" in value ? MemberRole.member : "tailGunner" in value ? MemberRole.tailGunner : "sergeantAtArms" in value ? MemberRole.sergeantAtArms : "vicePresident" in value ? MemberRole.vicePresident : "enforcer" in value ? MemberRole.enforcer : "prospect" in value ? MemberRole.prospect : "secretary" in value ? MemberRole.secretary : "roadCaptain" in value ? MemberRole.roadCaptain : "chaplain" in value ? MemberRole.chaplain : "treasurer" in value ? MemberRole.treasurer : "president" in value ? MemberRole.president : value;
 }
 function from_candid_variant_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
@@ -697,13 +694,21 @@ function to_candid_record_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8
 function to_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: MemberRole): {
     member: null;
 } | {
+    tailGunner: null;
+} | {
+    sergeantAtArms: null;
+} | {
     vicePresident: null;
+} | {
+    enforcer: null;
+} | {
+    prospect: null;
 } | {
     secretary: null;
 } | {
     roadCaptain: null;
 } | {
-    guest: null;
+    chaplain: null;
 } | {
     treasurer: null;
 } | {
@@ -711,14 +716,22 @@ function to_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint
 } {
     return value == MemberRole.member ? {
         member: null
+    } : value == MemberRole.tailGunner ? {
+        tailGunner: null
+    } : value == MemberRole.sergeantAtArms ? {
+        sergeantAtArms: null
     } : value == MemberRole.vicePresident ? {
         vicePresident: null
+    } : value == MemberRole.enforcer ? {
+        enforcer: null
+    } : value == MemberRole.prospect ? {
+        prospect: null
     } : value == MemberRole.secretary ? {
         secretary: null
     } : value == MemberRole.roadCaptain ? {
         roadCaptain: null
-    } : value == MemberRole.guest ? {
-        guest: null
+    } : value == MemberRole.chaplain ? {
+        chaplain: null
     } : value == MemberRole.treasurer ? {
         treasurer: null
     } : value == MemberRole.president ? {

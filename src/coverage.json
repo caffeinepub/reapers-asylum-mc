@@ -1,49 +1,70 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-23T20:59:41.697Z",
+  "generatedAt": "2026-02-24T01:32:28.865Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-25",
-        "summary": "Debug and fix the logo image display issue by verifying the image file exists at frontend/public/assets/generated/reapers-asylum-logo.png, checking that the image path references in Navbar.tsx and HomePage.tsx are correct, and ensuring the image is being properly served as a static asset",
+        "id": "REQ-27",
+        "summary": "Expand the backend Member type's role field to support all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-28",
+        "summary": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/Navbar.tsx",
-          "frontend/src/pages/HomePage.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/Navbar.tsx",
-          "frontend/src/pages/HomePage.tsx"
+          "frontend/src/pages/MemberManagementPage.tsx"
         ]
       },
       {
-        "id": "REQ-26",
-        "summary": "If the logo image file is missing from frontend/public/assets/generated/, regenerate it and ensure it is properly copied to the public assets directory during the build process",
+        "id": "REQ-29",
+        "summary": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png"
+          "frontend/src/pages/MembersPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png"
+          "frontend/src/pages/MembersPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-30",
+        "summary": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/MemberManagementPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/MemberManagementPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/reapers-asylum-logo.dim_400x400.png",
-    "frontend/src/components/Navbar.tsx",
-    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/pages/MemberManagementPage.tsx",
+    "frontend/src/pages/MembersPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

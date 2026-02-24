@@ -3,25 +3,33 @@ import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Users, Shield, Navigation, FileText, DollarSign, User, UserPlus } from 'lucide-react';
+import { Users, Crown, Star, Compass, Clipboard, Shield, DollarSign, Flame, ShieldCheck, Heart, UserPlus, User } from 'lucide-react';
 import { MemberRole } from '../backend';
 
 function getRoleIcon(role: MemberRole) {
   switch (role) {
     case MemberRole.president:
-      return Shield;
+      return Crown;
     case MemberRole.vicePresident:
-      return Shield;
+      return Star;
     case MemberRole.roadCaptain:
-      return Navigation;
+      return Compass;
     case MemberRole.secretary:
-      return FileText;
+      return Clipboard;
+    case MemberRole.sergeantAtArms:
+      return Shield;
     case MemberRole.treasurer:
       return DollarSign;
+    case MemberRole.enforcer:
+      return Flame;
+    case MemberRole.tailGunner:
+      return ShieldCheck;
+    case MemberRole.chaplain:
+      return Heart;
+    case MemberRole.prospect:
+      return UserPlus;
     case MemberRole.member:
       return User;
-    case MemberRole.guest:
-      return UserPlus;
     default:
       return User;
   }
@@ -37,12 +45,20 @@ function getRoleLabel(role: MemberRole): string {
       return 'Road Captain';
     case MemberRole.secretary:
       return 'Secretary';
+    case MemberRole.sergeantAtArms:
+      return 'Sergeant at Arms';
     case MemberRole.treasurer:
       return 'Treasurer';
+    case MemberRole.enforcer:
+      return 'Enforcer';
+    case MemberRole.tailGunner:
+      return 'Tail Gunner';
+    case MemberRole.chaplain:
+      return 'Chaplain';
+    case MemberRole.prospect:
+      return 'Prospect';
     case MemberRole.member:
       return 'Member';
-    case MemberRole.guest:
-      return 'Guest';
     default:
       return 'Member';
   }
@@ -52,7 +68,7 @@ function getRoleVariant(role: MemberRole): 'default' | 'secondary' | 'outline' {
   if (role === MemberRole.president || role === MemberRole.vicePresident) {
     return 'default';
   }
-  if (role === MemberRole.roadCaptain || role === MemberRole.secretary || role === MemberRole.treasurer) {
+  if (role === MemberRole.roadCaptain || role === MemberRole.secretary || role === MemberRole.sergeantAtArms || role === MemberRole.treasurer) {
     return 'secondary';
   }
   return 'outline';
@@ -118,35 +134,26 @@ export default function MembersPage() {
                     <span className="font-display text-2xl">{member.name}</span>
                     <RoleIcon className="h-6 w-6 text-primary" />
                   </CardTitle>
+                  <CardDescription>
+                    <Badge variant={getRoleVariant(member.role)} className="font-heading uppercase">
+                      {getRoleLabel(member.role)}
+                    </Badge>
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <Badge variant={getRoleVariant(member.role)} className="font-heading uppercase">
-                    {getRoleLabel(member.role)}
-                  </Badge>
-                  {member.photoUrl && (
-                    <div className="mt-4">
-                      <img
-                        src={member.photoUrl}
-                        alt={member.name}
-                        className="w-full h-48 object-cover border-2 border-border"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  )}
-                  {member.bio && (
-                    <CardDescription className="text-sm mt-2">{member.bio}</CardDescription>
-                  )}
-                </CardContent>
+                {member.bio && (
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{member.bio}</p>
+                  </CardContent>
+                )}
               </Card>
             );
           })}
         </div>
       ) : (
-        <div className="text-center py-12">
+        <div className="text-center py-16">
           <Users className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">No members found. The roster is currently empty.</p>
+          <h2 className="font-display text-3xl mb-2">No Members Yet</h2>
+          <p className="text-muted-foreground">The roster is currently empty.</p>
         </div>
       )}
     </div>

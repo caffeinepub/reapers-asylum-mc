@@ -1,13 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the Reapers Asylum MC logo not displaying on the website.
+**Goal:** Expand member roles to include all standard motorcycle club ranks with appropriate visual representation.
 
 **Planned changes:**
-- Debug and fix logo image display in Navbar and HomePage components
-- Verify logo file exists at correct path (frontend/public/assets/generated/reapers-asylum-logo.png)
-- Ensure image path references are correct in components
-- Confirm logo is properly served as a static asset
-- Regenerate logo image if missing from assets directory
+- Update backend Member type to accept all standard MC ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member
+- Update role selector dropdowns in Member Management page to include all MC ranks
+- Add unique icons for each rank in Members roster page (crown for President, star for Vice President, compass for Road Captain, clipboard for Secretary, shield for Sergeant at Arms, dollar sign for Treasurer, fist for Enforcer, shield-check for Tail Gunner, heart for Chaplain, user-plus for Prospect, user for Member)
+- Update Member Management page icons to match the expanded rank set
 
-**User-visible outcome:** The Reapers Asylum MC logo displays correctly in the navigation bar and homepage hero section without any 404 errors.
+**User-visible outcome:** Users can assign and view all standard motorcycle club ranks with unique icons representing each position throughout the member management interface.

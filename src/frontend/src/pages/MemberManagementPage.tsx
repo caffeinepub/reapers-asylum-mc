@@ -14,25 +14,33 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { Users, Plus, Edit, Trash2, Shield, Navigation, FileText, DollarSign, User, UserPlus } from 'lucide-react';
+import { Users, Plus, Edit, Trash2, Crown, Star, Compass, Clipboard, Shield, DollarSign, Flame, ShieldCheck, Heart, UserPlus, User } from 'lucide-react';
 import { MemberRole, Member } from '../backend';
 
 function getRoleIcon(role: MemberRole) {
   switch (role) {
     case MemberRole.president:
-      return Shield;
+      return Crown;
     case MemberRole.vicePresident:
-      return Shield;
+      return Star;
     case MemberRole.roadCaptain:
-      return Navigation;
+      return Compass;
     case MemberRole.secretary:
-      return FileText;
+      return Clipboard;
+    case MemberRole.sergeantAtArms:
+      return Shield;
     case MemberRole.treasurer:
       return DollarSign;
+    case MemberRole.enforcer:
+      return Flame;
+    case MemberRole.tailGunner:
+      return ShieldCheck;
+    case MemberRole.chaplain:
+      return Heart;
+    case MemberRole.prospect:
+      return UserPlus;
     case MemberRole.member:
       return User;
-    case MemberRole.guest:
-      return UserPlus;
     default:
       return User;
   }
@@ -48,12 +56,20 @@ function getRoleLabel(role: MemberRole): string {
       return 'Road Captain';
     case MemberRole.secretary:
       return 'Secretary';
+    case MemberRole.sergeantAtArms:
+      return 'Sergeant at Arms';
     case MemberRole.treasurer:
       return 'Treasurer';
+    case MemberRole.enforcer:
+      return 'Enforcer';
+    case MemberRole.tailGunner:
+      return 'Tail Gunner';
+    case MemberRole.chaplain:
+      return 'Chaplain';
+    case MemberRole.prospect:
+      return 'Prospect';
     case MemberRole.member:
       return 'Member';
-    case MemberRole.guest:
-      return 'Guest';
     default:
       return 'Member';
   }
@@ -63,7 +79,7 @@ function getRoleVariant(role: MemberRole): 'default' | 'secondary' | 'outline' {
   if (role === MemberRole.president || role === MemberRole.vicePresident) {
     return 'default';
   }
-  if (role === MemberRole.roadCaptain || role === MemberRole.secretary || role === MemberRole.treasurer) {
+  if (role === MemberRole.roadCaptain || role === MemberRole.secretary || role === MemberRole.sergeantAtArms || role === MemberRole.treasurer) {
     return 'secondary';
   }
   return 'outline';
@@ -211,9 +227,13 @@ export default function MemberManagementPage() {
                       <SelectItem value={MemberRole.vicePresident}>Vice President</SelectItem>
                       <SelectItem value={MemberRole.roadCaptain}>Road Captain</SelectItem>
                       <SelectItem value={MemberRole.secretary}>Secretary</SelectItem>
+                      <SelectItem value={MemberRole.sergeantAtArms}>Sergeant at Arms</SelectItem>
                       <SelectItem value={MemberRole.treasurer}>Treasurer</SelectItem>
+                      <SelectItem value={MemberRole.enforcer}>Enforcer</SelectItem>
+                      <SelectItem value={MemberRole.tailGunner}>Tail Gunner</SelectItem>
+                      <SelectItem value={MemberRole.chaplain}>Chaplain</SelectItem>
+                      <SelectItem value={MemberRole.prospect}>Prospect</SelectItem>
                       <SelectItem value={MemberRole.member}>Member</SelectItem>
-                      <SelectItem value={MemberRole.guest}>Guest</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
