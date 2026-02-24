@@ -10,6 +10,9 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export type ApplicationStatus = { 'pending' : null } |
+  { 'approved' : null } |
+  { 'rejected' : null };
 export interface Event {
   'id' : string,
   'startTime' : Time,
@@ -42,6 +45,13 @@ export type MemberRole = { 'member' : null } |
   { 'chaplain' : null } |
   { 'treasurer' : null } |
   { 'president' : null };
+export interface MembershipApplication {
+  'bio' : string,
+  'status' : ApplicationStatus,
+  'applicant' : Principal,
+  'name' : string,
+  'timestamp' : Time,
+}
 export interface News {
   'id' : string,
   'title' : string,
@@ -95,6 +105,7 @@ export interface _SERVICE {
     [string, MemberRole, string, [] | [string]],
     undefined
   >,
+  'approveApplication' : ActorMethod<[Principal], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'deleteMember' : ActorMethod<[string], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
@@ -102,10 +113,13 @@ export interface _SERVICE {
   'getEvents' : ActorMethod<[], Array<Event>>,
   'getMembers' : ActorMethod<[], Array<Member>>,
   'getNewsFeed' : ActorMethod<[], Array<News>>,
+  'getPendingApplications' : ActorMethod<[], Array<MembershipApplication>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'postNews' : ActorMethod<[string, string, string], undefined>,
+  'rejectApplication' : ActorMethod<[Principal], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'submitMembershipApplication' : ActorMethod<[string, string], undefined>,
   'updateMember' : ActorMethod<
     [string, string, MemberRole, string, [] | [string]],
     undefined

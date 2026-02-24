@@ -3,9 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Calendar, Newspaper, Image } from 'lucide-react';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
+import { useGetCallerUserProfile } from '../hooks/useGetCallerUserProfile';
+import MembershipApplicationForm from '../components/MembershipApplicationForm';
 
 export default function HomePage() {
   const { identity } = useInternetIdentity();
+  const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
   const isAuthenticated = !!identity;
 
   const features = [
@@ -34,6 +37,9 @@ export default function HomePage() {
       link: '/gallery',
     },
   ];
+
+  // Show application form if authenticated, profile loaded, and user doesn't have a member role
+  const showApplicationForm = isAuthenticated && isFetched && !profileLoading && !userProfile?.memberRole;
 
   return (
     <div className="min-h-screen">
@@ -99,6 +105,23 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Membership Application Section */}
+      {showApplicationForm && (
+        <section className="py-16 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="font-display text-4xl md:text-5xl mb-4 chrome-text">Apply for Membership</h2>
+                <p className="text-lg text-muted-foreground">
+                  Ready to join the brotherhood? Submit your application and an admin will review it soon.
+                </p>
+              </div>
+              <MembershipApplicationForm />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Call to Action */}
       <section className="py-16 bg-card">

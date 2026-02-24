@@ -1,53 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update member roles to include all motorcycle club ranks",
+  "title": "Fix membership applications not displaying in admin panel",
   "requirements": [
     {
-      "id": "REQ-28",
-      "summary": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks",
+      "id": "REQ-52",
+      "summary": "Investigate and fix the data flow issue preventing pending membership applications from displaying in the AdminManagementPage",
       "acceptanceCriteria": [
-        "Add member form displays all MC ranks in dropdown",
-        "Edit member form displays all MC ranks in dropdown",
-        "All ranks are properly capitalized and formatted"
+        "When a user submits a membership application, it is successfully stored in the backend",
+        "The AdminManagementPage displays all pending applications with applicant name, bio, and submission date",
+        "Admin users can see and interact with approve/reject buttons for each application",
+        "Console logs or debug output confirm data is flowing correctly from backend through usePendingApplications hook to the UI"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/MemberManagementPage.tsx",
+          "path": "frontend/src/hooks/usePendingApplications.ts",
           "operation": "modify",
-          "description": "Update the role selector dropdown to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member. Ensure the dropdown displays all ranks with proper capitalization and formatting in both add and edit member forms."
+          "description": "Review and enhance the usePendingApplications hook to ensure it properly handles the backend response format. Add comprehensive error handling and logging to trace the data flow from backend to frontend. Verify that the query is enabled correctly based on admin status and actor availability. Ensure the hook properly transforms the backend MembershipApplication[] response into the format expected by the AdminManagementPage component."
+        },
+        {
+          "path": "frontend/src/pages/AdminManagementPage.tsx",
+          "operation": "modify",
+          "description": "Fix the Membership Applications section to properly display pending applications. Verify that the component correctly uses the data from usePendingApplications hook. Ensure proper rendering of application cards showing applicant name, bio, and formatted timestamp. Verify approve/reject button wiring to useApproveApplication and useRejectApplication hooks. Add debug logging to trace received data and rendering state."
         }
       ]
     },
     {
-      "id": "REQ-29",
-      "summary": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons",
+      "id": "REQ-54",
+      "summary": "Add error handling and user feedback to the AdminManagementPage Membership Applications section",
       "acceptanceCriteria": [
-        "Each MC rank displays with a unique, appropriate icon",
-        "Role badges maintain consistent styling with existing design",
-        "Icons are sourced from lucide-react library for consistency"
+        "Display a clear message when there are no pending applications",
+        "Show error messages if the usePendingApplications hook fails",
+        "Include loading states while applications are being fetched"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/MembersPage.tsx",
+          "path": "frontend/src/pages/AdminManagementPage.tsx",
           "operation": "modify",
-          "description": "Update role icons and badges to represent all motorcycle club ranks with appropriate lucide-react icons: President (Crown), Vice President (Star), Road Captain (Compass), Secretary (Clipboard), Sergeant at Arms (Shield), Treasurer (DollarSign), Enforcer (Flame), Tail Gunner (ShieldCheck), Chaplain (Heart), Prospect (UserPlus), and Member (User). Maintain consistent styling with existing motorcycle club theme and ensure each rank displays its unique icon."
-        }
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "summary": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks",
-      "acceptanceCriteria": [
-        "Member Management page displays same icons as Members roster",
-        "Icons appear correctly in the member list table",
-        "Visual styling matches the existing motorcycle club theme"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/MemberManagementPage.tsx",
-          "operation": "modify",
-          "description": "Update role icons in the member list table to match the expanded set of motorcycle club ranks using the same icon mapping as the Members roster page (President: Crown, Vice President: Star, Road Captain: Compass, Secretary: Clipboard, Sergeant at Arms: Shield, Treasurer: DollarSign, Enforcer: Flame, Tail Gunner: ShieldCheck, Chaplain: Heart, Prospect: UserPlus, Member: User). Ensure visual styling matches the existing motorcycle club theme and maintains consistency with the Members roster page."
+          "description": "Enhance the Membership Applications section with comprehensive loading, error, and empty state handling. When applicationsLoading is true, display a loading spinner or skeleton. When applicationsError exists, show a user-friendly error message with details. When applications array is empty after successful fetch, display a clear message like 'No pending applications at this time'. Ensure all states are visually distinct and provide appropriate user feedback."
         }
       ]
     }

@@ -1,92 +1,68 @@
 {
   "kind": "build_request",
-  "title": "Update member roles to include all motorcycle club ranks",
+  "title": "Fix membership applications not displaying in admin panel",
   "projectName": "Reapers Asylum MC",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-27",
-      "text": "Expand the backend Member type's role field to support all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+      "id": "REQ-52",
+      "text": "Investigate and fix the data flow issue preventing pending membership applications from displaying in the AdminManagementPage, ensuring that submitted applications appear in the admin panel's Membership Applications section",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "I see the apply for membership  but do not see the application in admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When a user submits a membership application, it is successfully stored in the backend",
+        "The AdminManagementPage displays all pending applications with applicant name, bio, and submission date",
+        "Admin users can see and interact with approve/reject buttons for each application",
+        "Console logs or debug output confirm data is flowing correctly from backend through usePendingApplications hook to the UI"
+      ]
+    },
+    {
+      "id": "REQ-53",
+      "text": "Verify that the backend getPendingApplications() function returns applications in the correct format expected by the frontend usePendingApplications hook",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "Can we update the roles roster to include all mc ranks"
+          "msg-latest"
         ]
       },
       "acceptanceCriteria": [
-        "Backend Member type accepts all standard MC ranks",
-        "Existing members with current roles remain unaffected",
-        "Role validation ensures only valid MC ranks can be assigned"
+        "Backend getPendingApplications() returns an array of application objects",
+        "Each application object includes all required fields: applicant principal, name, bio, timestamp, and status",
+        "The return type matches the type expected by the frontend hook"
       ]
     },
     {
-      "id": "REQ-28",
-      "text": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+      "id": "REQ-54",
+      "text": "Add error handling and user feedback to the AdminManagementPage Membership Applications section to display meaningful messages when no applications are found or when fetch errors occur",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "Can we update the roles roster to include all mc ranks"
+          "msg-latest"
         ]
       },
       "acceptanceCriteria": [
-        "Add member form displays all MC ranks in dropdown",
-        "Edit member form displays all MC ranks in dropdown",
-        "All ranks are properly capitalized and formatted"
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "text": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "Can we update the roles roster to include all mc ranks"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each MC rank displays with a unique, appropriate icon",
-        "Role badges maintain consistent styling with existing design",
-        "Icons are sourced from lucide-react library for consistency"
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "text": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "Can we update the roles roster to include all mc ranks"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Member Management page displays same icons as Members roster",
-        "Icons appear correctly in the member list table",
-        "Visual styling matches the existing motorcycle club theme"
+        "Display a clear message when there are no pending applications",
+        "Show error messages if the usePendingApplications hook fails",
+        "Include loading states while applications are being fetched"
       ]
     }
   ],
   "constraints": [
-    "Do not change the backend single-actor architecture",
-    "Maintain existing member data and do not require migration for this change",
-    "Preserve the existing role-based visual styling and theme"
+    "Preserve the single-actor backend architecture in backend/main.mo",
+    "Do not modify files in frontend/src/hooks/useInternetIdentity.ts or frontend/src/components/ui",
+    "Maintain existing console logging for debugging that was added in previous versions"
   ],
   "nonGoals": [
-    "Changing the authentication system",
-    "Modifying admin privilege logic",
-    "Altering the news feed or events features",
-    "Redesigning the overall visual theme"
+    "Redesigning the AdminManagementPage UI layout",
+    "Adding new membership application fields",
+    "Implementing application filtering or search functionality"
   ],
   "imageRequirements": {
     "required": [],

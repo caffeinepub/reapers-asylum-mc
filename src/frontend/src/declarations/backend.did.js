@@ -74,6 +74,18 @@ export const News = IDL.Record({
   'content' : IDL.Text,
   'timestamp' : Time,
 });
+export const ApplicationStatus = IDL.Variant({
+  'pending' : IDL.Null,
+  'approved' : IDL.Null,
+  'rejected' : IDL.Null,
+});
+export const MembershipApplication = IDL.Record({
+  'bio' : IDL.Text,
+  'status' : ApplicationStatus,
+  'applicant' : IDL.Principal,
+  'name' : IDL.Text,
+  'timestamp' : Time,
+});
 
 export const idlService = IDL.Service({
   '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -113,6 +125,7 @@ export const idlService = IDL.Service({
       [],
       [],
     ),
+  'approveApplication' : IDL.Func([IDL.Principal], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'deleteMember' : IDL.Func([IDL.Text], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
@@ -120,6 +133,11 @@ export const idlService = IDL.Service({
   'getEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
   'getMembers' : IDL.Func([], [IDL.Vec(Member)], ['query']),
   'getNewsFeed' : IDL.Func([], [IDL.Vec(News)], ['query']),
+  'getPendingApplications' : IDL.Func(
+      [],
+      [IDL.Vec(MembershipApplication)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -127,7 +145,9 @@ export const idlService = IDL.Service({
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+  'rejectApplication' : IDL.Func([IDL.Principal], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'submitMembershipApplication' : IDL.Func([IDL.Text, IDL.Text], [], []),
   'updateMember' : IDL.Func(
       [IDL.Text, IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
       [],
@@ -204,6 +224,18 @@ export const idlFactory = ({ IDL }) => {
     'content' : IDL.Text,
     'timestamp' : Time,
   });
+  const ApplicationStatus = IDL.Variant({
+    'pending' : IDL.Null,
+    'approved' : IDL.Null,
+    'rejected' : IDL.Null,
+  });
+  const MembershipApplication = IDL.Record({
+    'bio' : IDL.Text,
+    'status' : ApplicationStatus,
+    'applicant' : IDL.Principal,
+    'name' : IDL.Text,
+    'timestamp' : Time,
+  });
   
   return IDL.Service({
     '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -243,6 +275,7 @@ export const idlFactory = ({ IDL }) => {
         [],
         [],
       ),
+    'approveApplication' : IDL.Func([IDL.Principal], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'deleteMember' : IDL.Func([IDL.Text], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
@@ -250,6 +283,11 @@ export const idlFactory = ({ IDL }) => {
     'getEvents' : IDL.Func([], [IDL.Vec(Event)], ['query']),
     'getMembers' : IDL.Func([], [IDL.Vec(Member)], ['query']),
     'getNewsFeed' : IDL.Func([], [IDL.Vec(News)], ['query']),
+    'getPendingApplications' : IDL.Func(
+        [],
+        [IDL.Vec(MembershipApplication)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -257,7 +295,9 @@ export const idlFactory = ({ IDL }) => {
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'postNews' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+    'rejectApplication' : IDL.Func([IDL.Principal], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'submitMembershipApplication' : IDL.Func([IDL.Text, IDL.Text], [], []),
     'updateMember' : IDL.Func(
         [IDL.Text, IDL.Text, MemberRole, IDL.Text, IDL.Opt(IDL.Text)],
         [],

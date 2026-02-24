@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 23,
   "summary": "Motorcycle club app for Reapers Asylum MC",
   "architectural_notes": [],
   "known_issues": [],
@@ -189,6 +189,118 @@
         "REQ-30"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hooks-for-submitting-membership-applications-usesubmitapplication-fetching-pending-applications-usependingapplications-approving-applications-useapproveapplication-and-rejecting-applications-userejectapplication",
+      "title": "Create React Query hooks for submitting membership applications (useSubmitApplication), fetching pending applications (usePendingApplications), approving applications (useApproveApplication), and rejecting applications (useRejectApplication)",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-membership-applications-section-to-the-admin-management-page-that-displays-all-pending-applications-in-a-card-or-table-format-showing-applicant-name-bio-submission-date-and-action-buttons-to-approve-or-reject-each-application",
+      "title": "Add a 'Membership Applications' section to the Admin Management page that displays all pending applications in a card or table format, showing applicant name, bio, submission date, and action buttons to approve or reject each application",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-membership-application-submission-form-accessible-to-authenticated-non-member-users-allowing-them-to-enter-their-name-and-bio-and-submit-an-application-to-join-the-club",
+      "title": "Create a membership application submission form accessible to authenticated non-member users, allowing them to enter their name and bio and submit an application to join the club",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hook-usesubmitapplication-for-submitting-membership-applications-with-name-and-bio",
+      "title": "Create React Query hook useSubmitApplication for submitting membership applications with name and bio",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hook-usependingapplications-for-fetching-all-pending-membership-applications",
+      "title": "Create React Query hook usePendingApplications for fetching all pending membership applications",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hook-useapproveapplication-for-approving-membership-applications",
+      "title": "Create React Query hook useApproveApplication for approving membership applications",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hook-userejectapplication-for-rejecting-membership-applications",
+      "title": "Create React Query hook useRejectApplication for rejecting membership applications",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-membership-applications-section-to-adminmanagementpage-displaying-all-pending-applications-with-applicant-name-bio-submission-date-and-approve-reject-action-buttons",
+      "title": "Add Membership Applications section to AdminManagementPage displaying all pending applications with applicant name, bio, submission date, and approve/reject action buttons",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-membership-application-submission-form-accessible-to-authenticated-non-member-users-allowing-them-to-enter-name-and-bio-and-submit-an-application",
+      "title": "Create membership application submission form accessible to authenticated non-member users allowing them to enter name and bio and submit an application",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-debug-and-fix-the-adminmanagementpage-component-to-ensure-the-membership-applications-section-correctly-displays-all-pending-applications-retrieved-from-the-usependingapplications-hook",
+      "title": "Debug and fix the AdminManagementPage component to ensure the Membership Applications section correctly displays all pending applications retrieved from the usePendingApplications hook",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-usependingapplications-react-query-hook-is-correctly-calling-the-backend-getpendingapplications-function-and-returning-the-data-in-the-expected-format",
+      "title": "Verify that the usePendingApplications React Query hook is correctly calling the backend getPendingApplications() function and returning the data in the expected format",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-console-logging-or-debug-output-to-trace-the-data-flow-from-backend-getpendingapplications-through-the-usependingapplications-hook-to-the-adminmanagementpage-render-to-identify-where-the-display-issue-occurs",
+      "title": "Add console logging or debug output to trace the data flow from backend getPendingApplications through the usePendingApplications hook to the AdminManagementPage render to identify where the display issue occurs",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-investigate-and-fix-the-data-flow-issue-preventing-pending-membership-applications-from-displaying-in-the-adminmanagementpage-ensuring-that-submitted-applications-appear-in-the-admin-panel-s-membership-applications-section",
+      "title": "Investigate and fix the data flow issue preventing pending membership applications from displaying in the AdminManagementPage, ensuring that submitted applications appear in the admin panel's Membership Applications section",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-error-handling-and-user-feedback-to-the-adminmanagementpage-membership-applications-section-to-display-meaningful-messages-when-no-applications-are-found-or-when-fetch-errors-occur",
+      "title": "Add error handling and user feedback to the AdminManagementPage Membership Applications section to display meaningful messages when no applications are found or when fetch errors occur",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -261,6 +373,92 @@
       "summary": "Expand the backend Member type's role field to support all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
       "reqIds": [
         "REQ-27"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Create an admin interface to review and approve membership applications",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Create a backend data model for membership applications that stores applicant name, bio, application timestamp, and application status (pending, approved, rejected)",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Implement backend functions for authenticated users to submit membership applications by providing their name and bio",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Implement backend admin-only functions to retrieve all pending membership applications, approve applications (which creates a member with 'Prospect' role), and reject applications",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Implement backend data model for membership applications storing applicant principal, name, bio, application timestamp (nanoseconds), and application status (pending, approved, rejected)",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Implement backend function for authenticated users to submit membership applications by providing their name and bio",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Implement backend admin-only function to retrieve all pending membership applications",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Implement backend admin-only function to approve membership applications which creates a member with 'Prospect' role",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Implement backend admin-only function to reject membership applications",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Verify that the backend getPendingApplications() function correctly retrieves all membership applications with status 'pending' and returns them in the correct format",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Verify that the backend getPendingApplications() function returns applications in the correct format expected by the frontend usePendingApplications hook",
+      "reqIds": [
+        "REQ-53"
       ],
       "status": "pending"
     }

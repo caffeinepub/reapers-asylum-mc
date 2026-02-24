@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-role-selector-dropdown-in-the-member-management-page-to-include-all-standard-motorcycle-club-ranks-president-vice-president-road-captain-secretary-sergeant-at-arms-treasurer-enforcer-tail-gunner-chaplain-prospect-and-member",
-      "featureTitle": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+      "featureId": "feature-investigate-and-fix-the-data-flow-issue-preventing-pending-membership-applications-from-displaying-in-the-adminmanagementpage-ensuring-that-submitted-applications-appear-in-the-admin-panel-s-membership-applications-section",
+      "featureTitle": "Investigate and fix the data flow issue preventing pending membership applications from displaying in the AdminManagementPage, ensuring that submitted applications appear in the admin panel's Membership Applications section",
       "files": [
-        "frontend/src/pages/MemberManagementPage.tsx"
+        "frontend/src/hooks/usePendingApplications.ts",
+        "frontend/src/pages/AdminManagementPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,15 +18,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-28"
+        "REQ-52"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-members-roster-page-role-icons-and-badges-to-visually-represent-all-motorcycle-club-ranks-with-appropriate-icons-president-crown-vice-president-star-road-captain-compass-secretary-clipboard-sergeant-at-arms-shield-treasurer-dollar-sign-enforcer-fist-tail-gunner-shield-check-chaplain-heart-prospect-user-plus-and-member-user",
-      "featureTitle": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
+      "featureId": "feature-add-error-handling-and-user-feedback-to-the-adminmanagementpage-membership-applications-section-to-display-meaningful-messages-when-no-applications-are-found-or-when-fetch-errors-occur",
+      "featureTitle": "Add error handling and user feedback to the AdminManagementPage Membership Applications section to display meaningful messages when no applications are found or when fetch errors occur",
       "files": [
-        "frontend/src/pages/MembersPage.tsx"
+        "frontend/src/pages/AdminManagementPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -37,27 +38,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-29"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-member-management-page-role-icons-to-match-the-expanded-set-of-motorcycle-club-ranks-ensuring-visual-consistency-with-the-members-roster-page",
-      "featureTitle": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
-      "files": [
-        "frontend/src/pages/MemberManagementPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-30"
+        "REQ-54"
       ],
       "confidence": "high"
     }

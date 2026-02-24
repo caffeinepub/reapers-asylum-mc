@@ -10,9 +10,7 @@ import Principal "mo:core/Principal";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import MixinStorage "blob-storage/Mixin";
-import Migration "migration";
 
-(with migration = Migration.run)
 actor {
   // Access control state
   let accessControlState = AccessControl.initState();
@@ -26,6 +24,7 @@ actor {
   var newsFeed : [News] = [];
   var members : [Member] = [];
   let userProfiles = Map.empty<Principal, UserProfile>();
+  var membershipApplications : Map.Map<Principal, MembershipApplication> = Map.empty<Principal, MembershipApplication>();
 
   public type MemberRole = {
     #president;
@@ -41,7 +40,6 @@ actor {
     #member;
   };
 
-  // Explicit compare implementation for MemberRole
   module MemberRole {
     public func compare(role1 : MemberRole, role2 : MemberRole) : Order.Order {
       let roleOrder = switch (role1, role2) {
@@ -109,7 +107,6 @@ actor {
     bio : ?Text;
   };
 
-  // Explicit compare implementation for Member
   module Member {
     public func compare(member1 : Member, member2 : Member) : Order.Order {
       switch (MemberRole.compare(member1.role, member2.role)) {
@@ -137,7 +134,6 @@ actor {
     #other;
   };
 
-  // Explicit compare implementation for Event
   module Event {
     public func compare(event1 : Event, event2 : Event) : Order.Order {
       switch (Int.compare(event1.startTime, event2.startTime)) {
@@ -155,7 +151,6 @@ actor {
     timestamp : Time.Time;
   };
 
-  // Explicit compare implementation for News
   module News {
     public func compare(news1 : News, news2 : News) : Order.Order {
       switch (Int.compare(news1.timestamp, news2.timestamp)) {
@@ -187,14 +182,11 @@ actor {
   };
 
   public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
-    // Check if this is the first user creating a profile
     let isFirstUser = userProfiles.size() == 0 and not membershipInitialized;
 
     if (isFirstUser) {
-      // First user automatically becomes admin
       AccessControl.assignRole(accessControlState, caller, caller, #admin);
 
-      // Create admin profile with president role
       let adminProfile : UserProfile = {
         name = profile.name;
         memberRole = ?#president;
@@ -204,7 +196,6 @@ actor {
 
       userProfiles.add(caller, adminProfile);
 
-      // Add to members list
       members := [
         {
           id = profile.name;
@@ -217,7 +208,6 @@ actor {
 
       membershipInitialized := true;
     } else {
-      // Regular user profile save - requires user permission
       if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
         Runtime.trap("Unauthorized: Only members can save their profile");
       };
@@ -337,5 +327,125 @@ actor {
       Runtime.trap("Unauthorized: Only members can view news");
     };
     newsFeed.sort();
+  };
+
+  public type ApplicationStatus = {
+    #pending;
+    #approved;
+    #rejected;
+  };
+
+  public type MembershipApplication = {
+    applicant : Principal;
+    name : Text;
+    bio : Text;
+    timestamp : Time.Time;
+    status : ApplicationStatus;
+  };
+
+  public shared ({ caller }) func submitMembershipApplication(name : Text, bio : Text) : async () {
+    // Check if caller is anonymous (guest without authentication)
+    if (caller.isAnonymous()) {
+      Runtime.trap("Unauthorized: Anonymous users cannot apply for membership");
+    };
+
+    // Check if caller is already a member
+    if (AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Existing members cannot submit applications");
+    };
+
+    // Check if there's already a pending application
+    switch (membershipApplications.get(caller)) {
+      case (?existingApp) {
+        if (existingApp.status == #pending) {
+          Runtime.trap("You already have a pending application");
+        };
+      };
+      case (null) {};
+    };
+
+    let application : MembershipApplication = {
+      applicant = caller;
+      name;
+      bio;
+      timestamp = Time.now();
+      status = #pending;
+    };
+
+    membershipApplications.add(caller, application);
+  };
+
+  public query ({ caller }) func getPendingApplications() : async [MembershipApplication] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can view pending applications");
+    };
+
+    let allApplications = membershipApplications.toArray();
+    let filteredApplications = allApplications.filter(
+      func((_, app)) { app.status == #pending }
+    );
+    filteredApplications.map(func((_, app)) { app });
+  };
+
+  public shared ({ caller }) func approveApplication(applicant : Principal) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can approve applications");
+    };
+
+    switch (membershipApplications.get(applicant)) {
+      case (null) { Runtime.trap("Application not found") };
+      case (?application) {
+        if (application.status != #pending) {
+          Runtime.trap("Application is not pending");
+        };
+
+        let updatedApplication : MembershipApplication = {
+          applicant = application.applicant;
+          name = application.name;
+          bio = application.bio;
+          timestamp = application.timestamp;
+          status = #approved;
+        };
+
+        membershipApplications.add(applicant, updatedApplication);
+
+        // Assign user role to the applicant
+        AccessControl.assignRole(accessControlState, caller, applicant, #user);
+
+        let newMember : Member = {
+          id = application.name;
+          name = application.name;
+          role = #prospect;
+          photoUrl = "";
+          bio = ?application.bio;
+        };
+        members := members.concat([newMember]);
+      };
+    };
+  };
+
+  public shared ({ caller }) func rejectApplication(applicant : Principal) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can reject applications");
+    };
+
+    switch (membershipApplications.get(applicant)) {
+      case (null) { Runtime.trap("Application not found") };
+      case (?application) {
+        if (application.status != #pending) {
+          Runtime.trap("Application is not pending");
+        };
+
+        let updatedApplication : MembershipApplication = {
+          applicant = application.applicant;
+          name = application.name;
+          bio = application.bio;
+          timestamp = application.timestamp;
+          status = #rejected;
+        };
+
+        membershipApplications.add(applicant, updatedApplication);
+      };
+    };
   };
 };

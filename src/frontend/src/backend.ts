@@ -89,6 +89,13 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface MembershipApplication {
+    bio: string;
+    status: ApplicationStatus;
+    applicant: Principal;
+    name: string;
+    timestamp: Time;
+}
 export type Time = bigint;
 export interface _CaffeineStorageRefillInformation {
     proposed_top_up_amount?: bigint;
@@ -130,6 +137,11 @@ export interface _CaffeineStorageRefillResult {
     success?: boolean;
     topped_up_amount?: bigint;
 }
+export enum ApplicationStatus {
+    pending = "pending",
+    approved = "approved",
+    rejected = "rejected"
+}
 export enum EventType {
     social = "social",
     other = "other",
@@ -165,6 +177,7 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addEvent(title: string, description: string, startTime: Time, endTime: Time, location: string, eventType: EventType): Promise<void>;
     addMember(name: string, role: MemberRole, photoUrl: string, bio: string | null): Promise<void>;
+    approveApplication(applicant: Principal): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     deleteMember(id: string): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
@@ -172,13 +185,16 @@ export interface backendInterface {
     getEvents(): Promise<Array<Event>>;
     getMembers(): Promise<Array<Member>>;
     getNewsFeed(): Promise<Array<News>>;
+    getPendingApplications(): Promise<Array<MembershipApplication>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     postNews(title: string, content: string, postedBy: string): Promise<void>;
+    rejectApplication(applicant: Principal): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    submitMembershipApplication(name: string, bio: string): Promise<void>;
     updateMember(id: string, name: string, role: MemberRole, photoUrl: string, bio: string | null): Promise<void>;
 }
-import type { Event as _Event, EventType as _EventType, Member as _Member, MemberRole as _MemberRole, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
+import type { ApplicationStatus as _ApplicationStatus, Event as _Event, EventType as _EventType, Member as _Member, MemberRole as _MemberRole, MembershipApplication as _MembershipApplication, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
@@ -307,6 +323,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async approveApplication(arg0: Principal): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.approveApplication(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.approveApplication(arg0);
+            return result;
+        }
+    }
     async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
         if (this.processError) {
             try {
@@ -405,6 +435,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getPendingApplications(): Promise<Array<MembershipApplication>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getPendingApplications();
+                return from_candid_vec_n32(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getPendingApplications();
+            return from_candid_vec_n32(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -447,17 +491,45 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
+    async rejectApplication(arg0: Principal): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n32(this._uploadFile, this._downloadFile, arg0));
+                const result = await this.actor.rejectApplication(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n32(this._uploadFile, this._downloadFile, arg0));
+            const result = await this.actor.rejectApplication(arg0);
+            return result;
+        }
+    }
+    async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n37(this._uploadFile, this._downloadFile, arg0));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n37(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async submitMembershipApplication(arg0: string, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitMembershipApplication(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitMembershipApplication(arg0, arg1);
             return result;
         }
     }
@@ -476,6 +548,9 @@ export class Backend implements backendInterface {
         }
     }
 }
+function from_candid_ApplicationStatus_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ApplicationStatus): ApplicationStatus {
+    return from_candid_variant_n36(_uploadFile, _downloadFile, value);
+}
 function from_candid_EventType_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventType): EventType {
     return from_candid_variant_n27(_uploadFile, _downloadFile, value);
 }
@@ -487,6 +562,9 @@ function from_candid_MemberRole_n19(_uploadFile: (file: ExternalBlob) => Promise
 }
 function from_candid_Member_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Member): Member {
     return from_candid_record_n30(_uploadFile, _downloadFile, value);
+}
+function from_candid_MembershipApplication_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _MembershipApplication): MembershipApplication {
+    return from_candid_record_n34(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserProfile_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserProfile): UserProfile {
     return from_candid_record_n17(_uploadFile, _downloadFile, value);
@@ -578,6 +656,27 @@ function from_candid_record_n30(_uploadFile: (file: ExternalBlob) => Promise<Uin
         photoUrl: value.photoUrl
     };
 }
+function from_candid_record_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    bio: string;
+    status: _ApplicationStatus;
+    applicant: Principal;
+    name: string;
+    timestamp: _Time;
+}): {
+    bio: string;
+    status: ApplicationStatus;
+    applicant: Principal;
+    name: string;
+    timestamp: Time;
+} {
+    return {
+        bio: value.bio,
+        status: from_candid_ApplicationStatus_n35(_uploadFile, _downloadFile, value.status),
+        applicant: value.applicant,
+        name: value.name,
+        timestamp: value.timestamp
+    };
+}
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     success: [] | [boolean];
     topped_up_amount: [] | [bigint];
@@ -637,11 +736,23 @@ function from_candid_variant_n27(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): EventType {
     return "social" in value ? EventType.social : "other" in value ? EventType.other : "ride" in value ? EventType.ride : "meeting" in value ? EventType.meeting : "fundraiser" in value ? EventType.fundraiser : value;
 }
+function from_candid_variant_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    pending: null;
+} | {
+    approved: null;
+} | {
+    rejected: null;
+}): ApplicationStatus {
+    return "pending" in value ? ApplicationStatus.pending : "approved" in value ? ApplicationStatus.approved : "rejected" in value ? ApplicationStatus.rejected : value;
+}
 function from_candid_vec_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Event>): Array<Event> {
     return value.map((x)=>from_candid_Event_n24(_uploadFile, _downloadFile, x));
 }
 function from_candid_vec_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Member>): Array<Member> {
     return value.map((x)=>from_candid_Member_n29(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_MembershipApplication>): Array<MembershipApplication> {
+    return value.map((x)=>from_candid_MembershipApplication_n33(_uploadFile, _downloadFile, x));
 }
 function to_candid_EventType_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EventType): _EventType {
     return to_candid_variant_n9(_uploadFile, _downloadFile, value);
@@ -649,8 +760,8 @@ function to_candid_EventType_n8(_uploadFile: (file: ExternalBlob) => Promise<Uin
 function to_candid_MemberRole_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: MemberRole): _MemberRole {
     return to_candid_variant_n11(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserProfile_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserProfile): _UserProfile {
-    return to_candid_record_n33(_uploadFile, _downloadFile, value);
+function to_candid_UserProfile_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserProfile): _UserProfile {
+    return to_candid_record_n38(_uploadFile, _downloadFile, value);
 }
 function to_candid_UserRole_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n14(_uploadFile, _downloadFile, value);
@@ -673,7 +784,7 @@ function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
         proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
     };
 }
-function to_candid_record_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function to_candid_record_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     bio: string;
     joinDate: Time;
     name: string;

@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useIsCallerAdmin } from '../hooks/useIsCallerAdmin';
 import { useAssignUserRole } from '../hooks/useAssignUserRole';
+import { usePendingApplications } from '../hooks/usePendingApplications';
+import { useApproveApplication } from '../hooks/useApproveApplication';
+import { useRejectApplication } from '../hooks/useRejectApplication';
 import { Principal } from '@dfinity/principal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, Shield, UserPlus, Info } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Loader2, Shield, UserPlus, Info, CheckCircle2, XCircle, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import AccessDeniedScreen from '../components/AccessDeniedScreen';
 import { UserRole } from '../backend';
@@ -17,11 +21,35 @@ export default function AdminManagementPage() {
   const { identity } = useInternetIdentity();
   const { data: isAdmin, isLoading: isAdminLoading } = useIsCallerAdmin();
   const assignUserRole = useAssignUserRole();
+  const pendingApplicationsQuery = usePendingApplications();
+  const approveApplication = useApproveApplication();
+  const rejectApplication = useRejectApplication();
   
   const [newAdminPrincipal, setNewAdminPrincipal] = useState('');
   const [isValidating, setIsValidating] = useState(false);
 
   const isAuthenticated = !!identity;
+
+  // Debug logging for pending applications
+  useEffect(() => {
+    console.log('[AdminManagementPage] Pending applications query state:', {
+      data: pendingApplicationsQuery.data,
+      isLoading: pendingApplicationsQuery.isLoading,
+      isError: pendingApplicationsQuery.isError,
+      error: pendingApplicationsQuery.error,
+      isFetching: pendingApplicationsQuery.isFetching,
+      isSuccess: pendingApplicationsQuery.isSuccess,
+      dataUpdatedAt: pendingApplicationsQuery.dataUpdatedAt,
+    });
+    
+    if (pendingApplicationsQuery.data) {
+      console.log('[AdminManagementPage] Applications array:', pendingApplicationsQuery.data);
+      console.log('[AdminManagementPage] Applications count:', pendingApplicationsQuery.data.length);
+      if (pendingApplicationsQuery.data.length > 0) {
+        console.log('[AdminManagementPage] First application:', pendingApplicationsQuery.data[0]);
+      }
+    }
+  }, [pendingApplicationsQuery.data, pendingApplicationsQuery.isLoading, pendingApplicationsQuery.isError, pendingApplicationsQuery.dataUpdatedAt]);
 
   // Show loading state while checking admin status
   if (!isAuthenticated || isAdminLoading) {
@@ -90,7 +118,25 @@ export default function AdminManagementPage() {
     }
   };
 
+  const handleApprove = async (applicant: Principal) => {
+    try {
+      await approveApplication.mutateAsync(applicant);
+    } catch (error) {
+      // Error is handled by the mutation hook
+    }
+  };
+
+  const handleReject = async (applicant: Principal) => {
+    try {
+      await rejectApplication.mutateAsync(applicant);
+    } catch (error) {
+      // Error is handled by the mutation hook
+    }
+  };
+
   const currentUserPrincipal = identity?.getPrincipal().toString();
+
+  const { data: pendingApplications, isLoading: applicationsLoading, isError: applicationsError, error: applicationsErrorObj } = pendingApplicationsQuery;
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -117,6 +163,115 @@ export default function AdminManagementPage() {
             </code>
           </AlertDescription>
         </Alert>
+
+        {/* Membership Applications Section */}
+        <Card className="mb-8 border-2 metal-border">
+          <CardHeader>
+            <CardTitle className="font-display text-2xl flex items-center gap-2">
+              <UserPlus className="h-6 w-6" />
+              Membership Applications
+            </CardTitle>
+            <CardDescription>
+              Review and approve or reject pending membership applications
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {applicationsLoading ? (
+              <div className="space-y-4">
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-32 w-full" />
+              </div>
+            ) : applicationsError ? (
+              <Alert variant="destructive">
+                <XCircle className="h-4 w-4" />
+                <AlertTitle>Error Loading Applications</AlertTitle>
+                <AlertDescription className="font-heading">
+                  {applicationsErrorObj?.message || 'Failed to load pending applications'}
+                </AlertDescription>
+              </Alert>
+            ) : !pendingApplications || pendingApplications.length === 0 ? (
+              <Alert>
+                <Clock className="h-4 w-4" />
+                <AlertDescription className="font-heading">
+                  No pending membership applications at this time
+                </AlertDescription>
+              </Alert>
+            ) : (
+              <div className="space-y-4">
+                {pendingApplications.map((application) => (
+                  <Card key={application.applicant.toString()} className="border-2">
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="font-display text-xl mb-1">{application.name}</h3>
+                          <p className="text-sm text-muted-foreground font-mono">
+                            {application.applicant.toString()}
+                          </p>
+                        </div>
+                        
+                        <div>
+                          <Label className="font-heading text-sm">Bio</Label>
+                          <p className="text-sm mt-1 text-muted-foreground">{application.bio}</p>
+                        </div>
+
+                        <div>
+                          <Label className="font-heading text-sm">Submitted</Label>
+                          <p className="text-sm mt-1 text-muted-foreground">
+                            {new Date(Number(application.timestamp / 1000000n)).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            })}
+                          </p>
+                        </div>
+
+                        <div className="flex gap-3 pt-2">
+                          <Button
+                            onClick={() => handleApprove(application.applicant)}
+                            disabled={approveApplication.isPending || rejectApplication.isPending}
+                            className="font-heading uppercase tracking-wider"
+                          >
+                            {approveApplication.isPending ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Approving...
+                              </>
+                            ) : (
+                              <>
+                                <CheckCircle2 className="mr-2 h-4 w-4" />
+                                Approve
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            onClick={() => handleReject(application.applicant)}
+                            disabled={approveApplication.isPending || rejectApplication.isPending}
+                            variant="destructive"
+                            className="font-heading uppercase tracking-wider"
+                          >
+                            {rejectApplication.isPending ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Rejecting...
+                              </>
+                            ) : (
+                              <>
+                                <XCircle className="mr-2 h-4 w-4" />
+                                Reject
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Add New Admin */}
         <Card className="mb-8 border-2 metal-border">

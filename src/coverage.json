@@ -1,70 +1,56 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-24T01:32:28.865Z",
+  "generatedAt": "2026-02-24T03:24:04.157Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 3,
+    "total": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-27",
-        "summary": "Expand the backend Member type's role field to support all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+        "id": "REQ-52",
+        "summary": "Investigate and fix the data flow issue preventing pending membership applications from displaying in the AdminManagementPage, ensuring that submitted applications appear in the admin panel's Membership Applications section",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/usePendingApplications.ts",
+          "frontend/src/pages/AdminManagementPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/usePendingApplications.ts",
+          "frontend/src/pages/AdminManagementPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-53",
+        "summary": "Verify that the backend getPendingApplications() function returns applications in the correct format expected by the frontend usePendingApplications hook",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-28",
-        "summary": "Update the role selector dropdown in the Member Management page to include all standard motorcycle club ranks: President, Vice President, Road Captain, Secretary, Sergeant at Arms, Treasurer, Enforcer, Tail Gunner, Chaplain, Prospect, and Member",
+        "id": "REQ-54",
+        "summary": "Add error handling and user feedback to the AdminManagementPage Membership Applications section to display meaningful messages when no applications are found or when fetch errors occur",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
+          "frontend/src/pages/AdminManagementPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-29",
-        "summary": "Update the Members roster page role icons and badges to visually represent all motorcycle club ranks with appropriate icons: President (crown), Vice President (star), Road Captain (compass), Secretary (clipboard), Sergeant at Arms (shield), Treasurer (dollar sign), Enforcer (fist), Tail Gunner (shield-check), Chaplain (heart), Prospect (user-plus), and Member (user)",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/MembersPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/MembersPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-30",
-        "summary": "Update the Member Management page role icons to match the expanded set of motorcycle club ranks, ensuring visual consistency with the Members roster page",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/MemberManagementPage.tsx"
+          "frontend/src/pages/AdminManagementPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
     "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/pages/MemberManagementPage.tsx",
-    "frontend/src/pages/MembersPage.tsx",
+    "frontend/src/hooks/usePendingApplications.ts",
+    "frontend/src/pages/AdminManagementPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
